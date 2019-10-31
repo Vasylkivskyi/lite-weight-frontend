@@ -1,0 +1,28 @@
+@import 'styles/_colors';
+@import 'styles/_breakpoints';
+
+.auth-form {
+  background: $nav-bg;
+  margin: 30px auto;
+  border-radius: 6px;
+  padding: 20px;
+  color: $white;
+
+  .form-title {
+    margin-bottom: 20px;
+  }
+
+  .form-input {
+    margin-bottom: 20px;
+  }
+
+  button {
+    background: $button-green;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+    border: none;
+
+    &:hover {
+      background: $button-green-hover;
+    }
+  }
+}
