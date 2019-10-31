@@ -19,7 +19,7 @@ module.exports = withCSS(
       config.resolve.alias.Constants = path.resolve(__dirname, 'src/constants/');
       config.resolve.alias.ReduxModules = path.resolve(__dirname, 'src/redux_modules');
       config.resolve.alias.styles = path.resolve(__dirname, 'styles/');
-      config.resolve.alias.static = path.resolve(__dirname, 'public/');
+      config.resolve.alias.public = path.resolve(__dirname, 'public/');
       config.resolve.alias.utils = path.resolve(__dirname, 'src/utils');
       config.resolve.extensions.push('.png');
 

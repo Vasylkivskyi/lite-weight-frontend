@@ -1,0 +1,19 @@
+@import 'styles/_colors';
+@import 'styles/_breakpoints';
+@import url('https://fonts.googleapis.com/css?family=Satisfy&display=swap');
+
+.main-nav {
+  color: red;
+  .logo-text {
+    font-size: 30px;
+    font-family: 'Satisfy', cursive;
+    margin-right: 30px;
+  }
+  .logo-img {
+    width: 35px;
+    margin-right: 10px;
+  }
+  a {
+    text-decoration: none;
+  }
+}
