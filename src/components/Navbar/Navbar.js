@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
 import './navbar.scss';
 import logo from '../../../public/images/favicon.png';
 import Link from 'next/link';
@@ -37,13 +49,25 @@ const Example = props => {
                 </NavItem>
               </a>
             </Link>
-            <Link href='/login'>
-              <a>
-                <NavItem>
-                  <NavLink>Залогуватись</NavLink>
-                </NavItem>
-              </a>
-            </Link>
+
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Авторизація
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  <Link href='/login'>
+                    <a>Логін</a>
+                  </Link>
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  <Link href='/register'>
+                    <a>Реєстрація</a>
+                  </Link>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </Nav>
         </Collapse>
       </Navbar>
