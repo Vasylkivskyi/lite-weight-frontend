@@ -35,20 +35,20 @@ const Example = props => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className='ml-auto' navbar>
-            <Link href='/exercises'>
-              <a>
-                <NavItem>
+            <NavItem>
+              <Link href='/exercises'>
+                <a>
                   <NavLink>Додати вправи</NavLink>
-                </NavItem>
-              </a>
-            </Link>
-            <Link href='/trainings'>
-              <a>
-                <NavItem>
+                </a>
+              </Link>
+            </NavItem>
+            <NavItem>
+              <Link href='/trainings'>
+                <a>
                   <NavLink>Записати тренування</NavLink>
-                </NavItem>
-              </a>
-            </Link>
+                </a>
+              </Link>
+            </NavItem>
 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
