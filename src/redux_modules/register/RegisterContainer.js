@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Layout, AuthForm } from 'Components';
 import PropTypes from 'prop-types';
 
-class LoginContainer extends Component {
+class RegisterContainer extends Component {
   render() {
-    const page = 'login';
+    const page = 'register';
     return (
       <React.Fragment>
         <Layout page={page}>
@@ -16,14 +16,12 @@ class LoginContainer extends Component {
   }
 }
 
-LoginContainer.propTypes = {
-  page: PropTypes.string.isRequired,
-};
+RegisterContainer.propTypes = {};
 
-LoginContainer.defaultProps = {};
+RegisterContainer.defaultProps = {};
 
 function mapStateToProps(state) {
   return {};
 }
 
-export default connect(mapStateToProps)(LoginContainer);
+export default connect(mapStateToProps)(RegisterContainer);

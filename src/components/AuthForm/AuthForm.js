@@ -4,10 +4,12 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './authForm.scss';
 
 const AuthForm = (props) => {
-  return (
-    <div className='auth-form justify-content-center col-lg-5 col-md-7'>
-      <Form>
-        <h2 className='form-title'>Реєстрація</h2>
+  const { page } = props;
+  const formTitle = page === 'register' ? 'Реєстрація' : 'Логін';
+
+  const renderForm = (page) => {
+    if (page === 'register') {
+      return (
         <FormGroup>
           <Label for='firstName'>Ім'я</Label>
           <Input
@@ -47,14 +49,46 @@ const AuthForm = (props) => {
             name='password'
             placeholder='Підтвердіть пароль'
           />
+          <Button>Зареєструватись</Button>
         </FormGroup>
-        <Button>Зареєструватись</Button>
+      );
+    }
+    return (
+      <FormGroup>
+        <Label for='email'>Email</Label>
+        <Input
+          className='form-input'
+          type='email'
+          name='email'
+          id='exampleEmail'
+          placeholder='arnie@coolmail.gym'
+        />
+        <Label for='password'>Пароль</Label>
+        <Input
+          className='form-input'
+          type='password'
+          name='password'
+          id='password'
+          placeholder='Введіть пароль'
+        />
+        <Button>Увійти</Button>
+      </FormGroup>
+    );
+  };
+
+  return (
+    <div className='auth-form justify-content-center col-lg-5 col-md-7'>
+      <Form>
+        <h2 className='form-title'>{formTitle}</h2>
+        {renderForm(page)}
       </Form>
     </div>
   );
 };
 
-AuthForm.propTypes = {};
+AuthForm.propTypes = {
+  page: PropTypes.string.isRequired,
+};
 
 AuthForm.defaultProps = {};
 

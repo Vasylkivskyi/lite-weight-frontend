@@ -3,10 +3,11 @@
 @import url('https://fonts.googleapis.com/css?family=Satisfy&display=swap');
 
 .main-nav {
-  .logo-text {
+  .logo {
     font-size: 30px;
     font-family: 'Satisfy', cursive;
     margin-right: 30px;
+    color: $white;
   }
   .logo-img {
     width: 35px;
@@ -14,5 +15,13 @@
   }
   a {
     text-decoration: none;
+    color: rgba($white, 0.5);
+    display: block;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+
+    &:hover {
+      color: rgba($white, 0.8);
+    }
   }
 }
