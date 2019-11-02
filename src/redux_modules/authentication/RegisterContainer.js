@@ -5,24 +5,31 @@ import PropTypes from 'prop-types';
 
 class RegisterContainer extends Component {
   render() {
-    const { dispatch } = this.props;
+    const { dispatch, userToken } = this.props;
     const page = 'register';
     return (
       <React.Fragment>
         <Layout page={page}>
-          <AuthForm page={page} dispatch={dispatch} />
+          <AuthForm page={page} dispatch={dispatch} userToken={userToken} />
         </Layout>
       </React.Fragment>
     );
   }
 }
 
-RegisterContainer.propTypes = {};
+RegisterContainer.propTypes = {
+  userToken: PropTypes.string,
+  dispatch: PropTypes.func.isRequired,
+};
 
-RegisterContainer.defaultProps = {};
+RegisterContainer.defaultProps = {
+  userToken: '',
+};
 
 function mapStateToProps(state) {
-  return state;
+  return {
+    userToken: state.auth.userToken,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

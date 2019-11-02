@@ -5,23 +5,40 @@ import PropTypes from 'prop-types';
 
 class LoginContainer extends Component {
   render() {
+    const { dispatch, userToken } = this.props;
     const page = 'login';
     return (
       <React.Fragment>
         <Layout page={page}>
-          <AuthForm page={page} />
+          <AuthForm page={page} dispatch={dispatch} userToken={userToken} />
         </Layout>
       </React.Fragment>
     );
   }
 }
 
-LoginContainer.propTypes = {};
+LoginContainer.propTypes = {
+  userToken: PropTypes.string,
+  dispatch: PropTypes.func.isRequired,
+};
 
-LoginContainer.defaultProps = {};
+LoginContainer.defaultProps = {
+  userToken: '',
+};
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    userToken: state.auth.userToken,
+  };
 }
 
-export default connect(mapStateToProps)(LoginContainer);
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LoginContainer);

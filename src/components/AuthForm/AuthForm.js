@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './authForm.scss';
-import { registerNewUser } from 'ReduxModules/authentication/authActions';
+import { registerNewUser, loginUser } from 'ReduxModules/authentication/authActions';
+import Router from 'next/router';
 
 class AuthForm extends Component {
   constructor(props) {
@@ -19,27 +20,32 @@ class AuthForm extends Component {
   handleChange = (event) => {
     const name = event.target.id;
     const value = event.target.value;
-    const { password, checkPassword } = this.state;
+    // const { password, checkPassword } = this.state;
     this.setState({
       [name]: value,
     });
-    if ((name === password || name === checkPassword) && password !== checkPassword) {
-      this.setState({ valid: false });
-    } else {
-      this.setState({ valid: true });
-    }
   };
 
   handleSubmit = (page) => {
     const { firstName, lastName, email, password } = this.state;
     const { dispatch } = this.props;
-    const newUser = {
-      firstName,
-      lastName,
-      email,
-      password,
-    };
-    dispatch(registerNewUser(newUser));
+    if (page === 'register') {
+      const newUser = {
+        firstName,
+        lastName,
+        email,
+        password,
+      };
+      dispatch(registerNewUser(newUser));
+      Router.push({ pathname: '/login' });
+    } else {
+      const usersLoginData = {
+        email,
+        password,
+      };
+      dispatch(loginUser(usersLoginData));
+      Router.push({ pathname: '/' });
+    }
   };
 
   renderForm = (page) => {
@@ -105,17 +111,21 @@ class AuthForm extends Component {
         <Input
           className='form-input'
           type='email'
+          value={this.state.email}
           name='email'
-          id='exampleEmail'
+          id='email'
           placeholder='arnie@coolmail.gym'
+          onChange={this.handleChange}
         />
         <Label for='password'>Пароль</Label>
         <Input
           className='form-input'
           type='password'
+          value={this.state.password}
           name='password'
           id='password'
           placeholder='Введіть пароль'
+          onChange={this.handleChange}
         />
         <Button onClick={() => this.handleSubmit(page)}>Увійти</Button>
       </FormGroup>
