@@ -1,13 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './authForm.scss';
+import { registerNewUser } from 'ReduxModules/authentication/authActions';
 
-const AuthForm = (props) => {
-  const { page } = props;
-  const formTitle = page === 'register' ? 'Реєстрація' : 'Логін';
+class AuthForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      checkPassword: '',
+    };
+  }
 
-  const renderForm = (page) => {
+  handleChange = (event) => {
+    const name = event.target.id;
+    const value = event.target.value;
+    const { password, checkPassword } = this.state;
+    this.setState({
+      [name]: value,
+    });
+    if ((name === password || name === checkPassword) && password !== checkPassword) {
+      this.setState({ valid: false });
+    } else {
+      this.setState({ valid: true });
+    }
+  };
+
+  handleSubmit = (page) => {
+    const { firstName, lastName, email, password } = this.state;
+    const { dispatch } = this.props;
+    const newUser = {
+      firstName,
+      lastName,
+      email,
+      password,
+    };
+    dispatch(registerNewUser(newUser));
+  };
+
+  renderForm = (page) => {
     if (page === 'register') {
       return (
         <FormGroup>
@@ -15,41 +50,52 @@ const AuthForm = (props) => {
           <Input
             className='form-input'
             type='text'
-            name='name'
+            value={this.state.firstName}
+            name='firstName'
             id='firstName'
             placeholder='Арнольд'
+            onChange={this.handleChange}
           />
           <Label for='lastName'>Прізвище</Label>
           <Input
             className='form-input'
-            type='email'
-            name='email'
+            type='text'
+            value={this.state.lastName}
+            name='lastName'
             id='lastName'
             placeholder='Шварценеггер'
+            onChange={this.handleChange}
           />
           <Label for='email'>Email</Label>
           <Input
             className='form-input'
             type='email'
+            value={this.state.email}
             name='email'
-            id='exampleEmail'
+            id='email'
             placeholder='arnie@coolmail.gym'
+            onChange={this.handleChange}
           />
           <Label for='password'>Пароль</Label>
           <Input
             className='form-input'
             type='password'
+            value={this.state.password}
             name='password'
             id='password'
             placeholder='Введіть пароль'
+            onChange={this.handleChange}
           />
           <Input
             className='form-input'
             type='password'
+            value={this.state.checkPassword}
             name='password'
+            id='checkPassword'
             placeholder='Підтвердіть пароль'
+            onChange={this.handleChange}
           />
-          <Button>Зареєструватись</Button>
+          <Button onClick={() => this.handleSubmit(page)}>Зареєструватись</Button>
         </FormGroup>
       );
     }
@@ -71,20 +117,24 @@ const AuthForm = (props) => {
           id='password'
           placeholder='Введіть пароль'
         />
-        <Button>Увійти</Button>
+        <Button onClick={() => this.handleSubmit(page)}>Увійти</Button>
       </FormGroup>
     );
   };
 
-  return (
-    <div className='auth-form justify-content-center col-lg-5 col-md-7'>
-      <Form>
-        <h2 className='form-title'>{formTitle}</h2>
-        {renderForm(page)}
-      </Form>
-    </div>
-  );
-};
+  render() {
+    const { page, dispatch } = this.props;
+    const formTitle = page === 'register' ? 'Реєстрація' : 'Логін';
+    return (
+      <div className='auth-form justify-content-center col-lg-5 col-md-7'>
+        <Form>
+          <h2 className='form-title'>{formTitle}</h2>
+          {this.renderForm(page)}
+        </Form>
+      </div>
+    );
+  }
+}
 
 AuthForm.propTypes = {
   page: PropTypes.string.isRequired,

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 
-// import { topic, isTopicFailed, getPageTopicSlug } from './topic/topicReducers';
+import { authentication } from './authentication/authReducer';
 
-export default combineReducers({});
+export default combineReducers({ authentication });

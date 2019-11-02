@@ -16,9 +16,7 @@ class LoginContainer extends Component {
   }
 }
 
-LoginContainer.propTypes = {
-  page: PropTypes.string.isRequired,
-};
+LoginContainer.propTypes = {};
 
 LoginContainer.defaultProps = {};
 
