@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './authForm.scss';
 import { registerNewUser, loginUser } from 'ReduxModules/authentication/authActions';
+import { setAlert } from 'ReduxModules/alert/alertActions';
 import Router from 'next/router';
 import Link from 'next/link';
+import { isValidEmail } from 'Utils/appHelpers';
 
 const AuthForm = (props) => {
   const { page, dispatch } = props;
@@ -30,7 +32,9 @@ const AuthForm = (props) => {
   const handleSubmit = (page) => {
     if (page === 'register') {
       if (password !== password2) {
-        console.log('Check the passwords...');
+        dispatch(setAlert('Введені паролі не співпадають!', 'danger'));
+      } else if (!isValidEmail(email)) {
+        dispatch(setAlert('Email не є справжнім!', 'danger'));
       } else {
         const newUser = {
           firstName,
@@ -41,7 +45,11 @@ const AuthForm = (props) => {
         dispatch(registerNewUser(newUser));
       }
     } else {
-      console.log(formData);
+      if (!isValidEmail(email)) {
+        dispatch(setAlert('Email не є справжнім!', 'danger'));
+      } else {
+        // need to add fetch
+      }
     }
   };
 

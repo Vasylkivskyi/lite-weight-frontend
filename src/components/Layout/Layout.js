@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { MainNavbar } from 'Components';
 import 'styles/main.scss';
 import './layout.scss';
+import AlertContainer from 'ReduxModules/alert/AlertContainer';
 
 const Layout = (props) => {
   const { children, page } = props;
@@ -21,6 +22,7 @@ const Layout = (props) => {
       </div>
       <div className='main'>
         <div className='container home-content'>
+          <AlertContainer />
           {children}
           {/* <div className="mt-5"><Footer /></div> */}
         </div>
