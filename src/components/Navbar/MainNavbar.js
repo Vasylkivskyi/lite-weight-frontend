@@ -1,17 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
 import './mainNavbar.scss';
 import logo from '../../../public/images/favicon.png';
 import Link from 'next/link';
@@ -24,23 +12,7 @@ const MainNavbar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   const renderNavMenu = (page) => {
-    if (page === 'register') {
-      return (
-        <NavItem>
-          <Link href='/login'>
-            <a>Логін</a>
-          </Link>
-        </NavItem>
-      );
-    } else if (page === 'login') {
-      return (
-        <NavItem>
-          <Link href='/register'>
-            <a>Реєстрація</a>
-          </Link>
-        </NavItem>
-      );
-    } else {
+    if (page !== 'register' && page !== 'login') {
       return (
         <React.Fragment>
           <NavItem>

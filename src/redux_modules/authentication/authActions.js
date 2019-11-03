@@ -39,8 +39,9 @@ const loginUser = (data) => async (dispatch) => {
       },
     });
     const token = await response.json();
-    dispatch(receiveUserToken(token));
-    return userToken;
+    console.log('token', token.token);
+    dispatch(receiveUserToken(token.token));
+    return token.token;
   } catch (error) {
     console.error('Error from loginUser: ', error);
     return error;

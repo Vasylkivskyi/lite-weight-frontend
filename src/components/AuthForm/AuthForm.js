@@ -1,155 +1,139 @@
-import React, { Component } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './authForm.scss';
 import { registerNewUser, loginUser } from 'ReduxModules/authentication/authActions';
 import Router from 'next/router';
+import Link from 'next/link';
 
-class AuthForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      checkPassword: '',
-    };
-  }
+const AuthForm = (props) => {
+  const { page, dispatch } = props;
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
 
-  handleChange = (event) => {
+  const { firstName, lastName, email, password, password2 } = formData;
+
+  const handleChange = (event) => {
     const name = event.target.id;
     const value = event.target.value;
-    // const { password, checkPassword } = this.state;
-    this.setState({
+    setFormData({
+      ...formData,
       [name]: value,
     });
   };
 
-  handleSubmit = (page) => {
-    const { firstName, lastName, email, password } = this.state;
-    const { dispatch } = this.props;
+  const handleSubmit = (page) => {
     if (page === 'register') {
-      const newUser = {
-        firstName,
-        lastName,
-        email,
-        password,
-      };
-      dispatch(registerNewUser(newUser));
-      Router.push({ pathname: '/login' });
+      if (password !== password2) {
+        console.log('Check the passwords...');
+      } else {
+        const newUser = {
+          firstName,
+          lastName,
+          email,
+          password,
+        };
+        dispatch(registerNewUser(newUser));
+      }
     } else {
-      const usersLoginData = {
-        email,
-        password,
-      };
-      dispatch(loginUser(usersLoginData));
-      Router.push({ pathname: '/' });
+      console.log(formData);
     }
   };
 
-  renderForm = (page) => {
-    if (page === 'register') {
-      return (
+  const formTitle = page === 'register' ? 'Реєстрація' : 'Логін';
+  return (
+    <div className='auth-form'>
+      <h1>{formTitle}</h1>
+      <Form>
+        {page === 'register' && (
+          <Fragment>
+            <FormGroup>
+              <Label for='firstName'>Ім'я</Label>
+              <Input
+                type='text'
+                name='firstName'
+                id='firstName'
+                placeholder='Арнольд'
+                onChange={(e) => handleChange(e)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for='lastName'>Прізвище</Label>
+              <Input
+                type='lastName'
+                name='lastName'
+                id='lastName'
+                placeholder='Шварценеггер'
+                onChange={(e) => handleChange(e)}
+              />
+            </FormGroup>
+          </Fragment>
+        )}
         <FormGroup>
-          <Label for='firstName'>Ім'я</Label>
-          <Input
-            className='form-input'
-            type='text'
-            value={this.state.firstName}
-            name='firstName'
-            id='firstName'
-            placeholder='Арнольд'
-            onChange={this.handleChange}
-          />
-          <Label for='lastName'>Прізвище</Label>
-          <Input
-            className='form-input'
-            type='text'
-            value={this.state.lastName}
-            name='lastName'
-            id='lastName'
-            placeholder='Шварценеггер'
-            onChange={this.handleChange}
-          />
           <Label for='email'>Email</Label>
           <Input
-            className='form-input'
             type='email'
-            value={this.state.email}
             name='email'
             id='email'
-            placeholder='arnie@coolmail.gym'
-            onChange={this.handleChange}
+            placeholder=' Email'
+            onChange={(e) => handleChange(e)}
           />
+        </FormGroup>
+        <FormGroup>
           <Label for='password'>Пароль</Label>
           <Input
-            className='form-input'
             type='password'
-            value={this.state.password}
             name='password'
             id='password'
             placeholder='Введіть пароль'
-            onChange={this.handleChange}
+            onChange={(e) => handleChange(e)}
           />
-          <Input
-            className='form-input'
-            type='password'
-            value={this.state.checkPassword}
-            name='password'
-            id='checkPassword'
-            placeholder='Підтвердіть пароль'
-            onChange={this.handleChange}
-          />
-          <Button onClick={() => this.handleSubmit(page)}>Зареєструватись</Button>
         </FormGroup>
-      );
-    }
-    return (
-      <FormGroup>
-        <Label for='email'>Email</Label>
-        <Input
-          className='form-input'
-          type='email'
-          value={this.state.email}
-          name='email'
-          id='email'
-          placeholder='arnie@coolmail.gym'
-          onChange={this.handleChange}
-        />
-        <Label for='password'>Пароль</Label>
-        <Input
-          className='form-input'
-          type='password'
-          value={this.state.password}
-          name='password'
-          id='password'
-          placeholder='Введіть пароль'
-          onChange={this.handleChange}
-        />
-        <Button onClick={() => this.handleSubmit(page)}>Увійти</Button>
-      </FormGroup>
-    );
-  };
 
-  render() {
-    const { page, dispatch } = this.props;
-    const formTitle = page === 'register' ? 'Реєстрація' : 'Логін';
-    return (
-      <div className='auth-form justify-content-center col-lg-5 col-md-7'>
-        <Form>
-          <h2 className='form-title'>{formTitle}</h2>
-          {this.renderForm(page)}
-        </Form>
-      </div>
-    );
-  }
-}
+        {page === 'register' && (
+          <FormGroup>
+            <Input
+              type='password'
+              name='password2'
+              id='password2'
+              placeholder='Повторіть пароль'
+              onChange={(e) => handleChange(e)}
+            />
+          </FormGroup>
+        )}
+        <Button onClick={() => handleSubmit(page)}>{formTitle}</Button>
+      </Form>
+      {page === 'register' ? (
+        <p>
+          Уже є аккаунт?{' '}
+          <Link href='/login'>
+            <a>Логін</a>
+          </Link>
+        </p>
+      ) : (
+        <p>
+          Немає аккаунта?{' '}
+          <Link href='/register'>
+            <a>Реєстрація</a>
+          </Link>
+        </p>
+      )}
+    </div>
+  );
+};
 
 AuthForm.propTypes = {
   page: PropTypes.string.isRequired,
+  userToken: PropTypes.string,
 };
 
-AuthForm.defaultProps = {};
+AuthForm.defaultProps = {
+  userToken: '',
+};
 
 export default AuthForm;

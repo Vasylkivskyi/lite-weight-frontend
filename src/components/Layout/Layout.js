@@ -31,11 +31,12 @@ const Layout = (props) => {
 
 Layout.propTypes = {
   children: PropTypes.node,
-  page: PropTypes.string.isRequired,
+  page: PropTypes.string,
 };
 
 Layout.defaultProps = {
   children: null,
+  page: '',
 };
 
 export default Layout;

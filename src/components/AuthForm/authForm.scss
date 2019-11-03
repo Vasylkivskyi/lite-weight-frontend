@@ -2,28 +2,7 @@
 @import 'styles/_breakpoints';
 
 .auth-form {
-  background: $nav-bg;
-  margin: 30px auto;
-  border-radius: 6px;
-  padding: 20px;
-  color: $white;
-  box-shadow: 1px 1px 8px $black;
-
-  .form-title {
-    margin-bottom: 20px;
-  }
-
-  .form-input {
-    margin-bottom: 20px;
-  }
-
-  button {
-    background: $button-green;
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
-    border: none;
-
-    &:hover {
-      background: $button-green-hover;
-    }
+  p {
+    margin-top: 1rem;
   }
 }
