@@ -8,7 +8,7 @@ const AlertContainer = ({ alerts, dispatch }) =>
   alerts.length !== 0 &&
   alerts.map((alert) => {
     return (
-      <Alert color={alert.alertType} key={alert.id}>
+      <Alert color={alert.alertType} key={alert.id} fade={false}>
         {alert.msg}
       </Alert>
     );

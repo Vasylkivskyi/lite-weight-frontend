@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './authForm.scss';
-import { registerNewUser, loginUser } from 'ReduxModules/authentication/authActions';
+import { registerNewUser, loginUser } from 'ReduxModules/auth/authActions';
 import { setAlert } from 'ReduxModules/alert/alertActions';
 import Router from 'next/router';
 import Link from 'next/link';
@@ -43,6 +43,7 @@ const AuthForm = (props) => {
           password,
         };
         dispatch(registerNewUser(newUser));
+        console.log('hey, its working');
       }
     } else {
       if (!isValidEmail(email)) {
