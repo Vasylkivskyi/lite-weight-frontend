@@ -3,9 +3,18 @@ import { connect } from 'react-redux';
 import { Layout, Test } from 'Components';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
+import { Cookies } from 'react-cookie';
+import { validateUserToken } from 'ReduxModules/auth/authActions';
+
+const cookies = new Cookies();
 
 class HomepageContainer extends Component {
-  componentDidMount = () => {};
+  static async getInitialProps({ reduxStore, req }) {
+    const token = cookies.get('token');
+    console.log('token ------', token);
+    reduxStore.dispatch(validateUserToken(token));
+    return {};
+  }
 
   render() {
     return (
@@ -39,4 +48,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps)(HomepageContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HomepageContainer);

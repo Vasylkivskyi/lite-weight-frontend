@@ -10,7 +10,7 @@ import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
 const MainNavbar = (props) => {
-  console.log('cookies', cookies.get('token'));
+  // console.log('cookies', cookies.get('token'));
   const { page } = props;
   const [isOpen, setIsOpen] = useState(false);
 

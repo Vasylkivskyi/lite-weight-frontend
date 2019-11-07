@@ -1,12 +1,13 @@
-import { REQUEST_USER_TOKEN, RECEIVE_USER_TOKEN, RECEIVE_USER_TOKEN_FAIL } from './authTypes';
-import { Cookies } from 'react-cookie';
-
-const cookies = new Cookies();
+import {
+  REQUEST_USER_TOKEN,
+  RECEIVE_USER_TOKEN,
+  RECEIVE_USER_TOKEN_FAIL,
+  VALIDATE_USER_TOKEN,
+} from './authTypes';
 
 const initialState = {
-  token: cookies.get('token') || null,
+  token: '',
   isAuthenticated: false,
-  user: null,
 };
 
 const auth = (state = initialState, action) => {
@@ -15,18 +16,17 @@ const auth = (state = initialState, action) => {
     case REQUEST_USER_TOKEN:
       return state;
     case RECEIVE_USER_TOKEN:
-      cookies.set('token', payload);
       return {
-        ...state,
-        token: payload.token,
-        isAuthenticated: true,
+        // todo
       };
     case RECEIVE_USER_TOKEN_FAIL:
-      localStorage.removeItem('token');
       return {
         ...state,
         token: '',
-        isAuthenticated: false,
+      };
+    case VALIDATE_USER_TOKEN:
+      return {
+        // todo
       };
     default:
       return state;

@@ -43,7 +43,6 @@ const AuthForm = (props) => {
           password,
         };
         dispatch(registerNewUser(newUser));
-        console.log('hey, its working');
       }
     } else {
       if (!isValidEmail(email)) {
