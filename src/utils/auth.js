@@ -16,10 +16,10 @@ export async function handleAuthSSR(ctx) {
   }
 
   try {
-    await axios.get(VALIDATE_TOKEN, { headers: { 'x-access-token': token + 'd' } });
+    await axios.get(VALIDATE_TOKEN, { headers: { 'x-access-token': token } });
     // dont really care about response, as long as it not an error
   } catch (err) {
-    // in case of error redirecting back to login pag
+    // in case of error redirecting back to login page
     if (ctx.res) {
       ctx.res.writeHead(302, {
         Location: '/login',
