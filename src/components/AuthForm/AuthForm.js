@@ -29,7 +29,7 @@ const AuthForm = (props) => {
     });
   };
 
-  const handleSubmit = (page) => {
+  const handleSubmit = async (page) => {
     if (page === 'register') {
       if (password !== password2) {
         dispatch(setAlert('Введені паролі не співпадають!', 'danger'));
@@ -43,12 +43,22 @@ const AuthForm = (props) => {
           password,
         };
         dispatch(registerNewUser(newUser));
+        Router.push('/');
       }
     } else {
       if (!isValidEmail(email)) {
         dispatch(setAlert('Email не є справжнім!', 'danger'));
       } else {
-        // need to add fetch
+        const user = {
+          email,
+          password,
+        };
+
+        // if no error we redirect user to homepage
+        const res = await dispatch(loginUser(user));
+        if (!res) {
+          Router.push('/');
+        }
       }
     }
   };

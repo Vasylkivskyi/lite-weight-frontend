@@ -5,11 +5,15 @@ import { MainNavbar } from 'Components';
 import 'styles/main.scss';
 import './layout.scss';
 import AlertContainer from 'ReduxModules/alert/AlertContainer';
+import { Cookies } from 'react-cookie';
+const cookies = new Cookies();
 
 const Layout = (props) => {
   const { children, page } = props;
+
   return (
     <div className='layout'>
+      {console.log('token -------->', cookies.get('token'))}
       <Head>
         <title>Lite weight</title>
         <meta charSet='utf-8' />
