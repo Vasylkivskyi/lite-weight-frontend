@@ -2,17 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Layout, Test } from 'Components';
 import PropTypes from 'prop-types';
-import Router from 'next/router';
-import { Cookies } from 'react-cookie';
-import { validateUserToken } from 'ReduxModules/auth/authActions';
-
-const cookies = new Cookies();
+import { handleAuthSSR } from 'Utils/auth';
 
 class HomepageContainer extends Component {
-  static async getInitialProps({ reduxStore, req }) {
-    const token = cookies.get('token');
-    console.log('token ------', token);
-    reduxStore.dispatch(validateUserToken(token));
+  static async getInitialProps({ reduxStore, req, res }) {
+    // use reduxStore to use dispatch
+    await handleAuthSSR({ req, res });
     return {};
   }
 

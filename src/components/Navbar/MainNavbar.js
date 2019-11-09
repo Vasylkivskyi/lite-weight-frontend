@@ -5,12 +5,7 @@ import logo from '../../../public/images/favicon.png';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-import { Cookies } from 'react-cookie';
-
-const cookies = new Cookies();
-
 const MainNavbar = (props) => {
-  // console.log('cookies', cookies.get('token'));
   const { page } = props;
   const [isOpen, setIsOpen] = useState(false);
 

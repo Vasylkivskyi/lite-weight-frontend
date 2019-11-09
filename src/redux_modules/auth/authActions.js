@@ -1,5 +1,5 @@
-import { REQUEST_USER_TOKEN, RECEIVE_USER_TOKEN, VALIDATE_USER_TOKEN } from './authTypes';
-import { USERS, USERS_LOGIN, VALIDATE_TOKEN } from 'Constants/apiUrls.js';
+import { REQUEST_USER_TOKEN, RECEIVE_USER_TOKEN } from './authTypes';
+import { USERS, USERS_LOGIN } from 'Constants/apiUrls.js';
 import { setAlert } from 'ReduxModules/alert/alertActions';
 import axios from 'axios';
 
@@ -39,7 +39,7 @@ const loginUser = (data) => async (dispatch) => {
     dispatch(requestUserToken());
     const response = await fetch(USERS_LOGIN, {
       method: 'POST',
-      body: JSON.stringify(data), // data must be {object}!
+      body: JSON.stringify(data), // data must be an {object}!
       headers: {
         'Content-Type': 'application/json',
       },
@@ -53,27 +53,4 @@ const loginUser = (data) => async (dispatch) => {
   }
 };
 
-const validateUserToken = (token) => async (dispatch) => {
-  try {
-    console.log(token);
-    const response = await axios({
-      method: 'get',
-      url: VALIDATE_TOKEN,
-      headers: { 'x-access-token': token },
-    });
-    // const response = await fetch(VALIDATE_TOKEN, {
-    //   method: 'GET',
-    //   headers: {
-    //     'x-access-token': token,
-    //   },
-    // });
-    // console.log(response);
-    const res = await response.json();
-    // console.log('resp', res);
-  } catch (error) {
-    //console.error('Error from validateUserToken: ', error);
-    return error;
-  }
-};
-
-export { registerNewUser, loginUser, validateUserToken };
+export { registerNewUser, loginUser };
