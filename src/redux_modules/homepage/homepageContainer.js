@@ -16,10 +16,11 @@ class HomepageContainer extends Component {
       <React.Fragment>
         <Layout>
           <JumbotronComponent
-            header='Ууупс... тут покищо пусто!'
+            header='Ууупс... Нічого немає!'
             about='На цій сторінці ти бачитимеш які вправи ти виконував на попередніх тренуваннях.'
             action='Тобі потрібно створити список вправ які ти хочеш виконувати на усіх своїх тренуваннях. Будь коли ти зможеш його змінити, видалити чи додати якусь вправу.'
             buttonAction='Додати вправи'
+            link='/exercises'
           />
         </Layout>
       </React.Fragment>

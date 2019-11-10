@@ -1,9 +1,10 @@
 import React from 'react';
 import { Jumbotron, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 const JumbotronComponent = (props) => {
-  const { header, about, action, buttonAction } = props;
+  const { header, about, action, buttonAction, link } = props;
   return (
     <Jumbotron>
       <h1 className='display-3'>{header}</h1>
@@ -11,7 +12,11 @@ const JumbotronComponent = (props) => {
       <hr className='my-2' />
       <p>{action}</p>
       <p className='lead'>
-        <Button color='primary'>{buttonAction}</Button>
+        <Button color='primary'>
+          <Link href={link}>
+            <a className='simple-link'>{buttonAction}</a>
+          </Link>
+        </Button>
       </p>
     </Jumbotron>
   );
@@ -22,6 +27,7 @@ JumbotronComponent.propTypes = {
   about: PropTypes.string, // Here you need to explain about that is this page
   action: PropTypes.string, // That user have to do on current page
   buttonAction: PropTypes.string, //button title
+  link: PropTypes.string,
 };
 
 JumbotronComponent.defaultProps = {
@@ -31,6 +37,7 @@ JumbotronComponent.defaultProps = {
   action:
     'It uses utility classes for typography and spacing to space content out within the larger container.',
   buttonAction: 'Learn More',
+  link: '/',
 };
 
 export default JumbotronComponent;
