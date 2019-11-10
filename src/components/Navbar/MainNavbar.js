@@ -17,17 +17,17 @@ const MainNavbar = (props) => {
         <React.Fragment>
           <NavItem>
             <Link href='/exercises'>
-              <a>Додати вправи</a>
+              <a className='nav-link'>Додати вправи</a>
             </Link>
           </NavItem>
           <NavItem>
             <Link href='/trainings'>
-              <a>Записати тренування</a>
+              <a className='nav-link'>Записати тренування</a>
             </Link>
           </NavItem>
           <NavItem>
             <Link href='/login'>
-              <a>Вийти</a>
+              <a className='nav-link'>Вийти</a>
             </Link>
           </NavItem>
         </React.Fragment>

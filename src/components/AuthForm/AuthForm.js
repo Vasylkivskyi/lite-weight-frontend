@@ -43,7 +43,8 @@ const AuthForm = (props) => {
           password,
         };
         dispatch(registerNewUser(newUser));
-        Router.push('/');
+        Router.push('/login');
+        dispatch(setAlert('Ви успішно зареєстровані', 'success'));
       }
     } else {
       if (!isValidEmail(email)) {

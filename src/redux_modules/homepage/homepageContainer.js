@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Layout, Test } from 'Components';
+import { Layout, JumbotronComponent } from 'Components';
 import PropTypes from 'prop-types';
 import { handleAuthSSR } from 'Utils/auth';
 
@@ -15,7 +15,12 @@ class HomepageContainer extends Component {
     return (
       <React.Fragment>
         <Layout>
-          <Test />
+          <JumbotronComponent
+            header='Ууупс... тут покищо пусто!'
+            about='На цій сторінці ти бачитимеш які вправи ти виконував на попередніх тренуваннях.'
+            action='Тобі потрібно створити список вправ які ти хочеш виконувати на усіх своїх тренуваннях. Будь коли ти зможеш його змінити, видалити чи додати якусь вправу.'
+            buttonAction='Додати вправи'
+          />
         </Layout>
       </React.Fragment>
     );
