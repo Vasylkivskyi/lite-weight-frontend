@@ -37,7 +37,7 @@ const MainNavbar = (props) => {
 
   return (
     <div className='main-nav'>
-      <Navbar dark expand='md'>
+      <Navbar color='white' expand='md' light>
         <Link href='/'>
           <a>
             <div className='logo' href='/'>

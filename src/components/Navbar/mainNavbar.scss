@@ -8,7 +8,7 @@
     font-family: 'Satisfy', cursive;
     margin-right: 30px;
     margin-left: -15px;
-    color: $white;
+    color: $black;
   }
   .logo-img {
     width: 35px;
@@ -19,13 +19,13 @@
   }
   .nav-link {
     text-decoration: none;
-    color: rgba($white, 0.5);
+    color: rgba($black, 0.5);
     display: block;
     padding: 0.5rem 1rem;
     white-space: nowrap;
 
     &:hover {
-      color: rgba($white, 0.8);
+      color: rgba($black, 0.8);
     }
   }
 }

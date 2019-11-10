@@ -125,7 +125,9 @@ const AuthForm = (props) => {
             />
           </FormGroup>
         )}
-        <Button onClick={() => handleSubmit(page)}>{formTitle}</Button>
+        <Button color='primary' onClick={() => handleSubmit(page)}>
+          {formTitle}
+        </Button>
       </Form>
       {page === 'register' ? (
         <p>
