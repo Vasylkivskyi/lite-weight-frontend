@@ -1,0 +1,18 @@
+@import 'styles/_colors';
+@import 'styles/_breakpoints';
+
+.exercises-list {
+  .exercise-title {
+    font-size: 30px;
+  }
+  .icon {
+    font-size: 30px;
+    &:hover {
+      color: $nav-bg;
+    }
+  }
+
+  .remove-outline:focus {
+    outline: none;
+  }
+}
