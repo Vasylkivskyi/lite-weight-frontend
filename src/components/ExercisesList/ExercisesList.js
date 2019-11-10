@@ -8,7 +8,7 @@ const ExercisesList = (props) => {
   return (
     <div className='exercises-list'>
       <InputGroup>
-        <Input placeholder='Dolla dolla billz yo!' className='exercise-title remove-outline' />
+        <Input placeholder='Dolla dolla billz yo!' className='exercise-title' />
         <InputGroupAddon addonType='append'>
           <InputGroupText>
             <FaPlusCircle className='icon' />

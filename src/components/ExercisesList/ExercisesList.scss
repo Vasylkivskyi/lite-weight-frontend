@@ -4,15 +4,16 @@
 .exercises-list {
   .exercise-title {
     font-size: 30px;
+
+    &:focus {
+      outline: 0 !important;
+    }
   }
+
   .icon {
     font-size: 30px;
     &:hover {
       color: $nav-bg;
     }
-  }
-
-  .remove-outline:focus {
-    outline: none;
   }
 }
