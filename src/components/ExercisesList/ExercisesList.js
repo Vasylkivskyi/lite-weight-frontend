@@ -49,12 +49,13 @@ const ExercisesList = (props) => {
   };
 
   const handleEdit = () => {
-    // need to make response to db
+    // need to show modal and make req to db
     console.log('edit');
   };
 
   const handleDelete = () => {
-    // need to make response to db
+    // need to show modal and make req to db
+
     console.log('delete');
   };
 
