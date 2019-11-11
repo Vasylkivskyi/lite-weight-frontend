@@ -151,6 +151,7 @@ const AuthForm = (props) => {
 AuthForm.propTypes = {
   page: PropTypes.string.isRequired,
   userToken: PropTypes.string,
+  dispatch: PropTypes.func.isRequired,
 };
 
 AuthForm.defaultProps = {

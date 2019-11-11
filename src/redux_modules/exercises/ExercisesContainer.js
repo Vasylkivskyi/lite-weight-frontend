@@ -10,7 +10,7 @@ class ExercisesContainer extends Component {
       <React.Fragment>
         <Layout>
           <h1>Твої вправи</h1>
-          <ExercisesList />
+          <ExercisesList dispatch={this.props.dispatch} />
         </Layout>
       </React.Fragment>
     );
