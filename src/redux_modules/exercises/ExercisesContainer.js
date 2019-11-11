@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { handleAuthSSR } from 'Utils/auth';
 import { connect } from 'react-redux';
 import { Layout, ExercisesList } from 'Components';
-import { ListGroup, ListGroupItem } from 'reactstrap';
-import { FaPlusCircle } from 'react-icons/fa';
 
 class ExercisesContainer extends Component {
   render() {

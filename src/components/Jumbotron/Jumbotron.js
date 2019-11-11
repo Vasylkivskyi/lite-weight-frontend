@@ -2,6 +2,7 @@ import React from 'react';
 import { Jumbotron, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import './Jumbotron.scss';
 
 const JumbotronComponent = (props) => {
   const { header, about, action, buttonAction, link } = props;
