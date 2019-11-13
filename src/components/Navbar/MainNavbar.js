@@ -1,35 +1,40 @@
 import React, { useState } from 'react';
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
 import './mainNavbar.scss';
-import logo from '../../../public/images/favicon.png';
+import logo from '../../../public/muscle.png';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-const MainNavbar = (props) => {
+const MainNavbar = props => {
   const { page } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const renderNavMenu = (page) => {
+  const renderNavMenu = page => {
     if (page !== 'register' && page !== 'login') {
       return (
         <React.Fragment>
-          <NavItem>
-            <Link href='/exercises'>
-              <a>Додати вправи</a>
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link href='/trainings'>
-              <a>Записати тренування</a>
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link href='/login'>
-              <a>Вийти</a>
-            </Link>
-          </NavItem>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className='ml-auto' navbar>
+              <NavItem>
+                <Link href='/exercises'>
+                  <a className='nav-link'>Додати вправи</a>
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link href='/trainings'>
+                  <a className='nav-link'>Записати тренування</a>
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link href='/login'>
+                  <a className='nav-link'>Вийти</a>
+                </Link>
+              </NavItem>
+            </Nav>
+          </Collapse>
         </React.Fragment>
       );
     }
@@ -46,12 +51,7 @@ const MainNavbar = (props) => {
             </div>
           </a>
         </Link>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className='ml-auto' navbar>
-            {renderNavMenu(page)}
-          </Nav>
-        </Collapse>
+        {renderNavMenu(page)}
       </Navbar>
     </div>
   );
