@@ -1,18 +1,19 @@
 @import 'styles/_colors';
 @import 'styles/_breakpoints';
-@import url('https://fonts.googleapis.com/css?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Saira+Stencil+One&display=swap');
 
 .main-nav {
   .logo {
     font-size: 30px;
-    font-family: 'Satisfy', cursive;
+    font-family: 'Saira Stencil One', cursive;
     margin-right: 30px;
     margin-left: -15px;
     color: $black;
   }
   .logo-img {
-    width: 35px;
+    width: 30px;
     margin-right: 10px;
+    margin-bottom: 14px;
   }
   a {
     text-decoration: none;
