@@ -4,7 +4,7 @@ import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 import { VALIDATE_TOKEN } from 'Constants/apiUrls.js';
 
-export async function handleAuthSSR(ctx) {
+const handleAuthSSR = async (ctx) => {
   let token = null;
   // if context has request info aka Server Side
   if (ctx.req) {
@@ -29,4 +29,16 @@ export async function handleAuthSSR(ctx) {
       Router.push('/login');
     }
   }
-}
+};
+
+const getTokenFromCookies = async (req) => {
+  let token = null;
+  if (req) {
+    token = req.headers.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+  } else {
+    token = cookies.get('token');
+  }
+  return token;
+};
+
+export { getTokenFromCookies, handleAuthSSR };
