@@ -33,7 +33,7 @@ const ExercisesList = (props) => {
       ...listData,
       exercisesList: [...exercisesData],
     });
-  }, [props]);
+  }, [props.exercises]);
 
   const addExercise = async () => {
     const loverCaseEx = exerciseName.toLowerCase();
