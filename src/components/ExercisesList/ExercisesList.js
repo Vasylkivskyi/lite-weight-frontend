@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import PropTypes, { any } from 'prop-types';
 import { InputGroupAddon, InputGroupText, InputGroup, Input, ListGroup, Button } from 'reactstrap';
 import { FaPlusCircle } from 'react-icons/fa';
 import { MdCreate, MdDelete } from 'react-icons/md';
 import './ExercisesList.scss';
 import { setAlert } from 'ReduxModules/alert/alertActions';
+import { saveExercise } from 'ReduxModules/exercises/exercisesActions';
+import { Cookies } from 'react-cookie';
+const cookies = new Cookies();
 
 const ExercisesList = (props) => {
-  const { dispatch } = props;
+  const token = cookies.get('token');
+  const { dispatch, exercises } = props;
+  const exercisesData = exercises.message ? [] : exercises.rows;
   const [listData, setExercisesData] = useState({
     exerciseName: '',
-    exercisesList: [],
+    exercisesList: exercisesData,
   });
 
   const { exerciseName, exercisesList } = listData;
@@ -23,9 +28,17 @@ const ExercisesList = (props) => {
     });
   };
 
-  const addExercise = () => {
+  useEffect(() => {
+    setExercisesData({
+      ...listData,
+      exercisesList: [...exercisesData],
+    });
+  }, [props]);
+
+  const addExercise = async () => {
     const loverCaseEx = exerciseName.toLowerCase();
-    const repeatEx = exercisesList.filter((ex) => ex.toLowerCase() === loverCaseEx);
+    const repeatEx = exercisesList.filter((ex) => ex.name.toLowerCase() === loverCaseEx);
+    console.log(exercisesList);
     if (!exerciseName.length) {
       dispatch(setAlert('Поле не може бути порожнім...', 'danger'));
       return;
@@ -34,9 +47,10 @@ const ExercisesList = (props) => {
       dispatch(setAlert('Вправа уже існує...', 'danger'));
       return;
     }
+    // here need to make requests to db
+    dispatch(saveExercise(token, exerciseName));
     setExercisesData({
       ...listData,
-      exercisesList: [...exercisesList, loverCaseEx],
       exerciseName: '',
     });
   };
@@ -62,8 +76,8 @@ const ExercisesList = (props) => {
   const renderExercisesList = () => {
     return exercisesList.map((exercise) => {
       return (
-        <li className='exercise-item'>
-          <span className='exercise-text'>{exercise}</span>
+        <li className='exercise-item' key={exercise.id}>
+          <span className='exercise-text'>{exercise.name}</span>
           <div className='control-buttons'>
             <MdCreate className='icon' onClick={handleEdit} />
             <MdDelete className='icon' onClick={handleDelete} />
@@ -100,8 +114,11 @@ const ExercisesList = (props) => {
 
 ExercisesList.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  exercises: PropTypes.objectOf(any),
 };
 
-ExercisesList.defaultProps = {};
+ExercisesList.defaultProps = {
+  exercises: {},
+};
 
 export default ExercisesList;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { getTokenFromCookies } from 'Utils/auth';
 import { connect } from 'react-redux';
 import { Layout, ExercisesList } from 'Components';
-import { getExercises } from './exercisesAction';
+import { getExercises } from './exercisesActions';
 
 class ExercisesContainer extends Component {
   static getInitialProps = async ({ reduxStore, req, res }) => {
@@ -13,11 +13,12 @@ class ExercisesContainer extends Component {
   };
 
   render() {
+    const { exercises } = this.props;
     return (
       <React.Fragment>
         <Layout>
           <h1>Твої вправи</h1>
-          <ExercisesList dispatch={this.props.dispatch} />
+          <ExercisesList dispatch={this.props.dispatch} exercises={exercises} />
         </Layout>
       </React.Fragment>
     );
@@ -29,7 +30,9 @@ ExercisesContainer.propTypes = {};
 ExercisesContainer.defaultProps = {};
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    exercises: state.exercises,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
