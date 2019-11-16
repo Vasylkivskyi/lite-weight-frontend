@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes, { any } from 'prop-types';
-import { InputGroupAddon, InputGroupText, InputGroup, Input, ListGroup, Button } from 'reactstrap';
+import {
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Input,
+  ListGroup,
+  FormGroup,
+  Button,
+  Label,
+} from 'reactstrap';
 import { FaPlusCircle } from 'react-icons/fa';
 import { MdCreate, MdDelete } from 'react-icons/md';
+import { ModalWindow } from 'Components';
 import './ExercisesList.scss';
 import { setAlert } from 'ReduxModules/alert/alertActions';
-import { saveExercise } from 'ReduxModules/exercises/exercisesActions';
+import { saveExercise, getExercises, editExercise } from 'ReduxModules/exercises/exercisesActions';
 import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
@@ -15,17 +25,43 @@ const ExercisesList = (props) => {
   const exercisesData = exercises.message ? [] : exercises.rows;
   const [listData, setExercisesData] = useState({
     exerciseName: '',
+    editExerciseName: '',
     exercisesList: exercisesData,
+    modalIsOpen: false,
+    modalButtonLabel: '',
+    modalTitle: '',
+    exerciseId: 1,
   });
 
-  const { exerciseName, exercisesList } = listData;
+  const {
+    exerciseName,
+    exercisesList,
+    modalIsOpen,
+    modalTitle,
+    modalButtonLabel,
+    editExerciseName,
+    exerciseId,
+  } = listData;
 
-  const handleChange = (event) => {
-    const { value } = event.target;
+  const toggleModal = () =>
     setExercisesData({
       ...listData,
-      exerciseName: value,
+      modalIsOpen: !modalIsOpen,
     });
+
+  const handleChange = (event, fieldType) => {
+    const { value } = event.target;
+    if (fieldType === 'exerciseName') {
+      setExercisesData({
+        ...listData,
+        exerciseName: value,
+      });
+    } else {
+      setExercisesData({
+        ...listData,
+        editExerciseName: value,
+      });
+    }
   };
 
   useEffect(() => {
@@ -38,7 +74,6 @@ const ExercisesList = (props) => {
   const addExercise = async () => {
     const loverCaseEx = exerciseName.toLowerCase();
     const repeatEx = exercisesList.filter((ex) => ex.name.toLowerCase() === loverCaseEx);
-    console.log(exercisesList);
     if (!exerciseName.length) {
       dispatch(setAlert('Поле не може бути порожнім...', 'danger'));
       return;
@@ -47,7 +82,6 @@ const ExercisesList = (props) => {
       dispatch(setAlert('Вправа уже існує...', 'danger'));
       return;
     }
-    // here need to make requests to db
     dispatch(saveExercise(token, exerciseName));
     setExercisesData({
       ...listData,
@@ -57,15 +91,38 @@ const ExercisesList = (props) => {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      console.log('enter');
       addExercise();
     }
   };
 
-  const handleEdit = () => {
+  const handleEdit = (id) => {
     // need to show modal and make req to db
-    console.log('edit');
+    console.log(id);
+    setExercisesData({
+      ...listData,
+      modalIsOpen: true,
+      modalTitle: 'Змінити вправу',
+      exerciseId: id,
+    });
   };
+
+  const requestExerciseEdit = () => {
+    dispatch(editExercise(token, { name: editExerciseName, id: exerciseId }));
+    toggleModal();
+  };
+
+  const renderModalContent = () => (
+    <FormGroup>
+      <Label for='backdrop'>Введіть нову назву вправи</Label>{' '}
+      <Input
+        type='text'
+        name='backdrop'
+        id='backdrop'
+        onChange={handleChange}
+        placeholder='Жим штанги лежачи'
+      />
+    </FormGroup>
+  );
 
   const handleDelete = () => {
     // need to show modal and make req to db
@@ -74,12 +131,23 @@ const ExercisesList = (props) => {
   };
 
   const renderExercisesList = () => {
-    return exercisesList.map((exercise) => {
+    const sortedExercises = exercisesList.sort(function(a, b) {
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+    return sortedExercises.map((exercise) => {
       return (
         <li className='exercise-item' key={exercise.id}>
           <span className='exercise-text'>{exercise.name}</span>
           <div className='control-buttons'>
-            <MdCreate className='icon' onClick={handleEdit} />
+            <MdCreate className='icon' onClick={() => handleEdit(exercise.id)} />
             <MdDelete className='icon' onClick={handleDelete} />
           </div>
         </li>
@@ -94,7 +162,7 @@ const ExercisesList = (props) => {
           placeholder='Назва вправи'
           className='exercise-title'
           value={exerciseName}
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => handleChange(e, 'exerciseName')}
           onKeyPress={(e) => handleKeyPress(e)}
         />
         <InputGroupAddon addonType='append'>
@@ -108,6 +176,13 @@ const ExercisesList = (props) => {
           <ListGroup>{renderExercisesList()}</ListGroup>
         </div>
       )}
+      <ModalWindow
+        isOpen={modalIsOpen}
+        toggle={toggleModal}
+        content={renderModalContent}
+        title={modalTitle}
+        action={requestExerciseEdit}
+      />
     </div>
   );
 };

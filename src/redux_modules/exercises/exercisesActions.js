@@ -32,11 +32,10 @@ export const getExercises = (token) => async (dispatch) => {
 
 export const saveExercise = (token, exerciseName) => async (dispatch) => {
   try {
-    // here need to call an action to start saving exercise like REQUEST_TO_SAVE_EXERCISE
     const exercise = { name: exerciseName };
     const response = await fetch(EXERCISES, {
       method: 'POST',
-      body: JSON.stringify(exercise), // data must be {object}!
+      body: JSON.stringify(exercise), // data must be an {object}!
       headers: {
         'Content-Type': 'application/json',
         'x-access-token': token,
@@ -46,5 +45,22 @@ export const saveExercise = (token, exerciseName) => async (dispatch) => {
   } catch (error) {
     console.error('Error from saveExercise: ', error);
     return error;
+  }
+};
+
+export const editExercise = (token, exercise) => async (dispatch) => {
+  const { id, name } = exercise;
+  try {
+    const response = await fetch(EXERCISES + `/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ name }),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+    });
+    dispatch(getExercises(token));
+  } catch (error) {
+    console.error('Error from editExercise', error);
   }
 };
