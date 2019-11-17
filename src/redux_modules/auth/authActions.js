@@ -1,7 +1,6 @@
-import { REQUEST_USER_TOKEN, RECEIVE_USER_TOKEN } from './authTypes';
+import { REQUEST_USER_TOKEN, RECEIVE_USER_TOKEN, REMOVE_TOKEN } from './authTypes';
 import { USERS, USERS_LOGIN } from 'Constants/apiUrls.js';
 import { setAlert } from 'ReduxModules/alert/alertActions';
-import axios from 'axios';
 
 const requestUserToken = () => ({
   type: REQUEST_USER_TOKEN,
@@ -10,6 +9,10 @@ const requestUserToken = () => ({
 const receiveUserToken = (token) => ({
   type: RECEIVE_USER_TOKEN,
   payload: token,
+});
+
+const removeToken = () => ({
+  type: REMOVE_TOKEN,
 });
 
 const registerNewUser = (data) => async (dispatch) => {
@@ -39,18 +42,21 @@ const loginUser = (data) => async (dispatch) => {
     dispatch(requestUserToken());
     const response = await fetch(USERS_LOGIN, {
       method: 'POST',
-      body: JSON.stringify(data), // data must be an {object}!
+      body: JSON.stringify(data), // data must be {object}!
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    const token = await response.json();
-    dispatch(receiveUserToken(token.token));
-    return token.token;
+    const resData = await response.json();
+    if (resData.message) {
+      dispatch(setAlert(resData.message, 'danger'));
+      return resData.message;
+    }
+    dispatch(receiveUserToken(resData.token));
   } catch (error) {
     console.error('Error from loginUser: ', error);
     return error;
   }
 };
 
-export { registerNewUser, loginUser };
+export { registerNewUser, loginUser, removeToken };

@@ -29,7 +29,7 @@ const AuthForm = (props) => {
     });
   };
 
-  const handleSubmit = (page) => {
+  const handleSubmit = async (page) => {
     if (page === 'register') {
       if (password !== password2) {
         dispatch(setAlert('Введені паролі не співпадають!', 'danger'));
@@ -43,12 +43,23 @@ const AuthForm = (props) => {
           password,
         };
         dispatch(registerNewUser(newUser));
+        Router.push('/login');
+        dispatch(setAlert('Ви успішно зареєстровані, будь ласка увійдіть', 'success'));
       }
     } else {
       if (!isValidEmail(email)) {
         dispatch(setAlert('Email не є справжнім!', 'danger'));
       } else {
-        // need to add fetch
+        const user = {
+          email,
+          password,
+        };
+
+        // if no error we redirect user to homepage
+        const res = await dispatch(loginUser(user));
+        if (!res) {
+          Router.push('/');
+        }
       }
     }
   };
@@ -114,7 +125,9 @@ const AuthForm = (props) => {
             />
           </FormGroup>
         )}
-        <Button onClick={() => handleSubmit(page)}>{formTitle}</Button>
+        <Button color='primary' onClick={() => handleSubmit(page)}>
+          {formTitle}
+        </Button>
       </Form>
       {page === 'register' ? (
         <p>
@@ -138,6 +151,7 @@ const AuthForm = (props) => {
 AuthForm.propTypes = {
   page: PropTypes.string.isRequired,
   userToken: PropTypes.string,
+  dispatch: PropTypes.func.isRequired,
 };
 
 AuthForm.defaultProps = {

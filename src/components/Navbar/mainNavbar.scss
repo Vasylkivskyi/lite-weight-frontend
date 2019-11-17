@@ -7,7 +7,8 @@
     font-size: 30px;
     font-family: 'Saira Stencil One', cursive;
     margin-right: 30px;
-    color: $white;
+    margin-left: -15px;
+    color: $black;
   }
   .logo-img {
     width: 30px;
@@ -16,13 +17,16 @@
   }
   a {
     text-decoration: none;
-    color: rgba($white, 0.5);
+  }
+  .nav-link {
+    text-decoration: none;
+    color: rgba($black, 0.5);
     display: block;
     padding: 0.5rem 1rem;
     white-space: nowrap;
 
     &:hover {
-      color: rgba($white, 0.8);
+      color: rgba($black, 0.8);
     }
   }
 }

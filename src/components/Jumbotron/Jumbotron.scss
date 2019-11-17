@@ -1,8 +1,10 @@
 @import 'styles/_colors';
 @import 'styles/_breakpoints';
 
-.layout {
-  .nav-container {
-    margin-bottom: 2rem;
+button a {
+  color: $white;
+
+  &:hover {
+    color: $white;
   }
 }

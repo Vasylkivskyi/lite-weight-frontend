@@ -5,13 +5,13 @@ import logo from '../../../public/muscle.png';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-const MainNavbar = props => {
+const MainNavbar = (props) => {
   const { page } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const renderNavMenu = page => {
+  const renderNavMenu = (page) => {
     if (page !== 'register' && page !== 'login') {
       return (
         <React.Fragment>
@@ -42,7 +42,7 @@ const MainNavbar = props => {
 
   return (
     <div className='main-nav'>
-      <Navbar dark expand='md'>
+      <Navbar color='white' expand='md' light>
         <Link href='/'>
           <a>
             <div className='logo' href='/'>
