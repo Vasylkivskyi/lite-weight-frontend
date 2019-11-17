@@ -1,5 +1,6 @@
 import { REQUEST_EXERCISES, RECEIVE_EXERCISES, RECEIVE_EXERCISES_FAIL } from './exercisesTypes';
 import { EXERCISES } from 'Constants/apiUrls.js';
+import Router from 'next/router';
 
 import axios from 'axios';
 
@@ -25,7 +26,8 @@ const getExercises = (token) => async (dispatch) => {
     dispatch(receiveExercises(result.data));
   } catch (error) {
     dispatch(receiveExercisesFail());
-    console.error('Error from getExercises: ', error);
+    console.error('Error from getExercises: ', error.response.data);
+    Router.push('/login');
     return error;
   }
 };
@@ -33,17 +35,19 @@ const getExercises = (token) => async (dispatch) => {
 const saveExercise = (token, exerciseName) => async (dispatch) => {
   try {
     const exercise = { name: exerciseName };
-    const response = await fetch(EXERCISES, {
-      method: 'POST',
-      body: JSON.stringify(exercise), // data must be an {object}!
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token,
+    await axios.post(
+      EXERCISES,
+      exercise, // data must be an {object}!
+      {
+        headers: {
+          'x-access-token': token,
+        },
       },
-    });
+    );
     dispatch(getExercises(token));
   } catch (error) {
-    console.error('Error from saveExercise: ', error);
+    console.error('Error from saveExercise: ', error.response.data);
+    Router.push('/login');
     return error;
   }
 };
@@ -51,32 +55,34 @@ const saveExercise = (token, exerciseName) => async (dispatch) => {
 const editExercise = (token, exercise) => async (dispatch) => {
   const { id, name } = exercise;
   try {
-    const response = await fetch(EXERCISES + `/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({ name }),
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token,
+    await axios.put(
+      EXERCISES + `/${id}`,
+      { name },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token,
+        },
       },
-    });
+    );
     dispatch(getExercises(token));
   } catch (error) {
-    console.error('Error from editExercise', error);
+    console.error('Error from editExercise', error.response.data);
+    Router.push('/login');
   }
 };
 
 const deleteExercise = (token, id) => async (dispatch) => {
   try {
-    const response = await fetch(EXERCISES + `/${id}`, {
-      method: 'DELETE',
+    await axios.delete(EXERCISES + `/${id}`, {
       headers: {
         'x-access-token': token,
       },
     });
-    const data = await response.json();
     dispatch(getExercises(token));
   } catch (error) {
-    console.error('Error from deleteExercise', error);
+    console.error('Error from deleteExercise', error.response.data);
+    Router.push('/login');
   }
 };
 

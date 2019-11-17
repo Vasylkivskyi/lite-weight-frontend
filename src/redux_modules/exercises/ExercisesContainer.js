@@ -4,10 +4,12 @@ import { getTokenFromCookies } from 'Utils/auth';
 import { connect } from 'react-redux';
 import { Layout, ExercisesList } from 'Components';
 import { getExercises } from './exercisesActions';
+import { handleAuthSSR } from 'Utils/auth';
 
 class ExercisesContainer extends Component {
   static getInitialProps = async ({ reduxStore, req, res }) => {
     const token = await getTokenFromCookies(req);
+    await handleAuthSSR({ req, res });
     await reduxStore.dispatch(getExercises(token));
     return {};
   };
