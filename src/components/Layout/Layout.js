@@ -13,7 +13,6 @@ const Layout = (props) => {
 
   return (
     <div className='layout'>
-      {console.log('token -------->', cookies.get('token'))}
       <Head>
         <title>Lite weight</title>
         <meta charSet='utf-8' />

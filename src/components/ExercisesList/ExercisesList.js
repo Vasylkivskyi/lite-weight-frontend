@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes, { any } from 'prop-types';
 import {
   InputGroupAddon,
@@ -9,13 +9,19 @@ import {
   FormGroup,
   Button,
   Label,
+  ModalBody,
+  ModalFooter,
 } from 'reactstrap';
 import { FaPlusCircle } from 'react-icons/fa';
 import { MdCreate, MdDelete } from 'react-icons/md';
 import { ModalWindow } from 'Components';
 import './ExercisesList.scss';
 import { setAlert } from 'ReduxModules/alert/alertActions';
-import { saveExercise, getExercises, editExercise } from 'ReduxModules/exercises/exercisesActions';
+import {
+  saveExercise,
+  deleteExercise,
+  editExercise,
+} from 'ReduxModules/exercises/exercisesActions';
 import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
@@ -31,6 +37,7 @@ const ExercisesList = (props) => {
     modalButtonLabel: '',
     modalTitle: '',
     exerciseId: 1,
+    action: '',
   });
 
   const {
@@ -38,9 +45,9 @@ const ExercisesList = (props) => {
     exercisesList,
     modalIsOpen,
     modalTitle,
-    modalButtonLabel,
     editExerciseName,
     exerciseId,
+    action,
   } = listData;
 
   const toggleModal = () =>
@@ -95,14 +102,14 @@ const ExercisesList = (props) => {
     }
   };
 
-  const handleEdit = (id) => {
-    // need to show modal and make req to db
-    console.log(id);
+  const handleEdit = (id, name) => {
     setExercisesData({
       ...listData,
       modalIsOpen: true,
       modalTitle: 'Змінити вправу',
       exerciseId: id,
+      action: 'edit',
+      editExerciseName: name,
     });
   };
 
@@ -111,27 +118,59 @@ const ExercisesList = (props) => {
     toggleModal();
   };
 
-  const renderModalContent = () => (
-    <FormGroup>
-      <Label for='backdrop'>Введіть нову назву вправи</Label>{' '}
-      <Input
-        type='text'
-        name='backdrop'
-        id='backdrop'
-        onChange={handleChange}
-        placeholder='Жим штанги лежачи'
-      />
-    </FormGroup>
-  );
+  const handleDelete = (id) => {
+    setExercisesData({
+      ...listData,
+      modalIsOpen: true,
+      modalTitle: 'Видалити вправу',
+      exerciseId: id,
+      action: 'delete',
+    });
+  };
 
-  const handleDelete = () => {
-    // need to show modal and make req to db
+  const requestExerciseDelete = () => {
+    dispatch(deleteExercise(token, exerciseId));
+    toggleModal();
+  };
 
-    console.log('delete');
+  const renderModalContent = () => {
+    return action === 'edit' ? (
+      <Fragment>
+        <ModalBody>
+          <FormGroup>
+            <Label for='backdrop'>Введіть нову назву вправи</Label>{' '}
+            <Input
+              type='text'
+              name='backdrop'
+              id='backdrop'
+              onChange={handleChange}
+              value={editExerciseName}
+            />
+          </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button color='primary' onClick={requestExerciseEdit}>
+            Зберегти
+          </Button>{' '}
+          <Button color='secondary' onClick={toggleModal}>
+            Скасувати
+          </Button>
+        </ModalFooter>
+      </Fragment>
+    ) : (
+      <ModalFooter className='footer'>
+        <Button color='danger' onClick={requestExerciseDelete}>
+          Видалити
+        </Button>{' '}
+        <Button color='secondary' onClick={toggleModal}>
+          Скасувати
+        </Button>
+      </ModalFooter>
+    );
   };
 
   const renderExercisesList = () => {
-    const sortedExercises = exercisesList.sort(function(a, b) {
+    const sortedExercises = exercisesList.sort((a, b) => {
       const nameA = a.name.toUpperCase();
       const nameB = b.name.toUpperCase();
       if (nameA < nameB) {
@@ -147,8 +186,8 @@ const ExercisesList = (props) => {
         <li className='exercise-item' key={exercise.id}>
           <span className='exercise-text'>{exercise.name}</span>
           <div className='control-buttons'>
-            <MdCreate className='icon' onClick={() => handleEdit(exercise.id)} />
-            <MdDelete className='icon' onClick={handleDelete} />
+            <MdCreate className='icon' onClick={() => handleEdit(exercise.id, exercise.name)} />
+            <MdDelete className='icon' onClick={() => handleDelete(exercise.id)} />
           </div>
         </li>
       );
@@ -181,7 +220,7 @@ const ExercisesList = (props) => {
         toggle={toggleModal}
         content={renderModalContent}
         title={modalTitle}
-        action={requestExerciseEdit}
+        action={action}
       />
     </div>
   );

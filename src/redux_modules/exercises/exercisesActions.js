@@ -16,7 +16,7 @@ const receiveExercisesFail = () => ({
   type: RECEIVE_EXERCISES_FAIL,
 });
 
-export const getExercises = (token) => async (dispatch) => {
+const getExercises = (token) => async (dispatch) => {
   try {
     dispatch(requestExercises());
     const result = await axios.get(EXERCISES, {
@@ -30,7 +30,7 @@ export const getExercises = (token) => async (dispatch) => {
   }
 };
 
-export const saveExercise = (token, exerciseName) => async (dispatch) => {
+const saveExercise = (token, exerciseName) => async (dispatch) => {
   try {
     const exercise = { name: exerciseName };
     const response = await fetch(EXERCISES, {
@@ -48,7 +48,7 @@ export const saveExercise = (token, exerciseName) => async (dispatch) => {
   }
 };
 
-export const editExercise = (token, exercise) => async (dispatch) => {
+const editExercise = (token, exercise) => async (dispatch) => {
   const { id, name } = exercise;
   try {
     const response = await fetch(EXERCISES + `/${id}`, {
@@ -64,3 +64,20 @@ export const editExercise = (token, exercise) => async (dispatch) => {
     console.error('Error from editExercise', error);
   }
 };
+
+const deleteExercise = (token, id) => async (dispatch) => {
+  try {
+    const response = await fetch(EXERCISES + `/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'x-access-token': token,
+      },
+    });
+    const data = await response.json();
+    dispatch(getExercises(token));
+  } catch (error) {
+    console.error('Error from deleteExercise', error);
+  }
+};
+
+export { deleteExercise, editExercise, getExercises, saveExercise };

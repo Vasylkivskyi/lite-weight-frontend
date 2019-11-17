@@ -1,32 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader } from 'reactstrap';
+import './ModalWindow.scss';
 
 const ModalWindow = (props) => {
-  const { content, className, isOpen, toggle, title, action } = props;
-
-  const [modal, setModal] = useState(false);
-
+  const { content, isOpen, toggle, title } = props;
   return (
     <div>
-      <Modal isOpen={isOpen} toggle={toggle} className={className}>
+      <Modal isOpen={isOpen} toggle={toggle}>
         <ModalHeader toggle={toggle}>{title}</ModalHeader>
-        <ModalBody>{content()}</ModalBody>
-        <ModalFooter>
-          <Button color='primary' onClick={action}>
-            Do Something
-          </Button>{' '}
-          <Button color='secondary' onClick={toggle}>
-            Cancel
-          </Button>
-        </ModalFooter>
+        {content()}
       </Modal>
     </div>
   );
 };
 
 ModalWindow.propTypes = {
-  buttonLabel: PropTypes.string.isRequired,
+  buttonLabel: PropTypes.object,
   isOpen: PropTypes.bool,
 };
 
