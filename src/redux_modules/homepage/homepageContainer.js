@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Layout, JumbotronComponent } from 'Components';
 import PropTypes from 'prop-types';
-import { handleAuthSSR } from 'Utils/auth';
+import { checkToken } from 'Utils/auth';
 
 class HomepageContainer extends Component {
   static async getInitialProps({ reduxStore, req, res }) {
     // use reduxStore to use dispatch
-    await handleAuthSSR({ req, res });
+    const token = checkToken({ req, res });
+    console.log(token);
+    // make requests with token
     return {};
   }
 

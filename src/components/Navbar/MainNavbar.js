@@ -12,6 +12,27 @@ const MainNavbar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   const renderNavMenu = (page) => {
+    if (page === 'exercises') {
+      return (
+        <React.Fragment>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className='ml-auto' navbar>
+              <NavItem>
+                <Link href='/trainings'>
+                  <a className='nav-link'>Записати тренування</a>
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link href='/login'>
+                  <a className='nav-link'>Вийти</a>
+                </Link>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </React.Fragment>
+      );
+    }
     if (page !== 'register' && page !== 'login') {
       return (
         <React.Fragment>
