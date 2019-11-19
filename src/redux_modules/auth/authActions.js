@@ -1,6 +1,7 @@
 import { REQUEST_USER_TOKEN, RECEIVE_USER_TOKEN, REMOVE_TOKEN } from './authTypes';
 import { USERS, USERS_LOGIN } from 'Constants/apiUrls.js';
 import { setAlert } from 'ReduxModules/alert/alertActions';
+import Router from 'next/router';
 
 const requestUserToken = () => ({
   type: REQUEST_USER_TOKEN,
@@ -59,4 +60,13 @@ const loginUser = (data) => async (dispatch) => {
   }
 };
 
-export { registerNewUser, loginUser, removeToken };
+const logOutUser = () => (dispatch) => {
+  try {
+    dispatch(removeToken);
+    Router.push('/login');
+  } catch (error) {
+    console.error('Error from logOutUser', error);
+  }
+};
+
+export { registerNewUser, loginUser, removeToken, logOutUser };

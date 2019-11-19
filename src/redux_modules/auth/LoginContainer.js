@@ -15,7 +15,7 @@ class LoginContainer extends Component {
     const page = 'login';
     return (
       <React.Fragment>
-        <Layout page={page}>
+        <Layout page={page} dispatch={dispatch}>
           <AuthForm page={page} dispatch={dispatch} userToken={userToken} />
         </Layout>
       </React.Fragment>

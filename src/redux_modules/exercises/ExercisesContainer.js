@@ -15,10 +15,10 @@ class ExercisesContainer extends Component {
   };
 
   render() {
-    const { exercises } = this.props;
+    const { exercises, dispatch } = this.props;
     return (
       <React.Fragment>
-        <Layout page='exercises'>
+        <Layout page='exercises' dispatch={dispatch}>
           <h1>Твої вправи</h1>
           <ExercisesList dispatch={this.props.dispatch} exercises={exercises} />
         </Layout>

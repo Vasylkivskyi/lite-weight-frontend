@@ -9,7 +9,7 @@ import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
 const Layout = (props) => {
-  const { children, page } = props;
+  const { children, page, dispatch } = props;
 
   return (
     <div className='layout'>
@@ -24,7 +24,7 @@ const Layout = (props) => {
       </Head>
       <div className='nav-container'>
         <div className='container'>
-          <MainNavbar page={page} />
+          <MainNavbar page={page} dispatch={dispatch} />
         </div>
       </div>
       <div className='main'>
@@ -41,6 +41,7 @@ const Layout = (props) => {
 Layout.propTypes = {
   children: PropTypes.node,
   page: PropTypes.string,
+  dispatch: PropTypes.func.isRequired,
 };
 
 Layout.defaultProps = {

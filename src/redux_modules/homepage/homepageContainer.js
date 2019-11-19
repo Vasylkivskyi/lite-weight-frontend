@@ -14,9 +14,10 @@ class HomepageContainer extends Component {
   }
 
   render() {
+    const { dispatch } = this.props;
     return (
       <React.Fragment>
-        <Layout>
+        <Layout page='homepage' dispatch={dispatch}>
           <JumbotronComponent
             header='Ууупс... Нічого немає!'
             about='На цій сторінці ти бачитимеш які вправи ти виконував на попередніх тренуваннях.'

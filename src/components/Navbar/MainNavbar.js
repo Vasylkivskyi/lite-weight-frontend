@@ -4,12 +4,17 @@ import './mainNavbar.scss';
 import logo from '../../../public/muscle.png';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { logOutUser } from 'ReduxModules/auth/authActions';
 
 const MainNavbar = (props) => {
-  const { page } = props;
+  const { page, dispatch } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+
+  const handleLogOut = () => {
+    dispatch(logOutUser());
+  };
 
   const renderNavMenu = (page) => {
     if (page === 'exercises') {
@@ -24,9 +29,9 @@ const MainNavbar = (props) => {
                 </Link>
               </NavItem>
               <NavItem>
-                <Link href='/login'>
-                  <a className='nav-link'>Вийти</a>
-                </Link>
+                <div onClick={handleLogOut} className='nav-link'>
+                  Вийти
+                </div>
               </NavItem>
             </Nav>
           </Collapse>
@@ -50,9 +55,9 @@ const MainNavbar = (props) => {
                 </Link>
               </NavItem>
               <NavItem>
-                <Link href='/login'>
-                  <a className='nav-link'>Вийти</a>
-                </Link>
+                <div onClick={handleLogOut} className='nav-link'>
+                  Вийти
+                </div>
               </NavItem>
             </Nav>
           </Collapse>
@@ -80,6 +85,7 @@ const MainNavbar = (props) => {
 
 MainNavbar.propTypes = {
   page: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 MainNavbar.defaultProps = {};
