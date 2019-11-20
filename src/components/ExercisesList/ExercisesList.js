@@ -12,8 +12,7 @@ import {
   ModalBody,
   ModalFooter,
 } from 'reactstrap';
-import { FaPlusCircle } from 'react-icons/fa';
-import { MdCreate, MdDelete } from 'react-icons/md';
+import { MdCreate, MdDelete, MdAdd } from 'react-icons/md';
 import { ModalWindow } from 'Components';
 import './ExercisesList.scss';
 import { setAlert } from 'ReduxModules/alert/alertActions';
@@ -28,7 +27,7 @@ const cookies = new Cookies();
 const ExercisesList = (props) => {
   const token = cookies.get('token');
   const { dispatch, exercises } = props;
-  const exercisesData = exercises.message ? [] : exercises.rows;
+  const exercisesData = exercises.length ? exercises : [];
   const [listData, setExercisesData] = useState({
     exerciseName: '',
     editExerciseName: '',
@@ -206,7 +205,7 @@ const ExercisesList = (props) => {
         />
         <InputGroupAddon addonType='append'>
           <InputGroupText>
-            <FaPlusCircle className='icon' onClick={addExercise} />
+            <MdAdd className='icon' onClick={addExercise} />
           </InputGroupText>
         </InputGroupAddon>
       </InputGroup>
@@ -228,11 +227,11 @@ const ExercisesList = (props) => {
 
 ExercisesList.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  exercises: PropTypes.objectOf(any),
+  exercises: PropTypes.arrayOf(PropTypes.object),
 };
 
 ExercisesList.defaultProps = {
-  exercises: {},
+  exercises: [],
 };
 
 export default ExercisesList;

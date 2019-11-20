@@ -1,0 +1,19 @@
+@import 'styles/_colors';
+@import 'styles/_breakpoints';
+
+.training-list {
+  .exercise-input {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-left: 15px;
+
+    .select-exercise {
+      width: 75%;
+    }
+
+    .digits {
+      width: 10%;
+    }
+  }
+}

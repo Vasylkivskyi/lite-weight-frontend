@@ -27,13 +27,17 @@ class ExercisesContainer extends Component {
   }
 }
 
-ExercisesContainer.propTypes = {};
+ExercisesContainer.propTypes = {
+  exercises: PropTypes.arrayOf(PropTypes.object),
+};
 
-ExercisesContainer.defaultProps = {};
+ExercisesContainer.defaultProps = {
+  exercises: [],
+};
 
 function mapStateToProps(state) {
   return {
-    exercises: state.exercises,
+    exercises: state.exercises.rows,
   };
 }
 

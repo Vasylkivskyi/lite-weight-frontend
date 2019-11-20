@@ -17,6 +17,28 @@ const MainNavbar = (props) => {
   };
 
   const renderNavMenu = (page) => {
+    if (page === 'training') {
+      return (
+        <React.Fragment>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className='ml-auto' navbar>
+              <NavItem>
+                <Link href='/exercises'>
+                  <a className='nav-link'>Додати вправи</a>
+                </Link>
+              </NavItem>
+              <NavItem>
+                <div onClick={handleLogOut} className='nav-link'>
+                  Вийти
+                </div>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </React.Fragment>
+      );
+    }
+
     if (page === 'exercises') {
       return (
         <React.Fragment>
@@ -24,7 +46,7 @@ const MainNavbar = (props) => {
           <Collapse isOpen={isOpen} navbar>
             <Nav className='ml-auto' navbar>
               <NavItem>
-                <Link href='/trainings'>
+                <Link href='/training'>
                   <a className='nav-link'>Записати тренування</a>
                 </Link>
               </NavItem>
@@ -50,7 +72,7 @@ const MainNavbar = (props) => {
                 </Link>
               </NavItem>
               <NavItem>
-                <Link href='/trainings'>
+                <Link href='/training'>
                   <a className='nav-link'>Записати тренування</a>
                 </Link>
               </NavItem>
