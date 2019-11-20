@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import PropTypes, { any } from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   InputGroupAddon,
   InputGroupText,

@@ -9,11 +9,36 @@
     padding-left: 15px;
 
     .select-exercise {
-      width: 75%;
-    }
+      width: 65%;
 
+      @media #{$only-on-mobile} {
+        width: 40%;
+      }
+    }
     .digits {
       width: 10%;
+    }
+    .button-container {
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+      border: 1px solid #ced4da;
+      padding: 0.375rem 0.75rem;
+      text-align: center;
+      border-radius: 0.25rem;
+      background: $white;
+
+      .icon {
+        font-size: 1rem;
+        color: $primary;
+      }
+
+      &:hover {
+        background: $primary;
+        cursor: pointer;
+        .icon {
+          color: $white;
+        }
+      }
     }
   }
 }

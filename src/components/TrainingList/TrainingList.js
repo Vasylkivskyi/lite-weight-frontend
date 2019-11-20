@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './trainingList.scss';
 import { FormGroup, Label, Input } from 'reactstrap';
+import { MdCreate, MdDelete, MdAdd } from 'react-icons/md';
 
 const TrainingList = (props) => {
   const { dispatch, exercises } = props;
@@ -26,12 +27,16 @@ const TrainingList = (props) => {
           <Label for='weight'>Вага</Label>
           <Input type='text' name='select' id='weight' placeholder='0' />
         </FormGroup>
+        <div className='digits button-container'>
+          <MdAdd className='icon' />
+        </div>
       </div>
     </div>
   );
 };
 
 TrainingList.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   exercises: PropTypes.arrayOf(PropTypes.object),
 };
 

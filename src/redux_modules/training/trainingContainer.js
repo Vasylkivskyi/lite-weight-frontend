@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Layout, TrainingList } from 'Components';
-import PropTypes, { any } from 'prop-types';
+import PropTypes from 'prop-types';
 import { checkToken } from 'Utils/auth';
 import { getExercises } from 'ReduxModules/exercises/exercisesActions';
 
