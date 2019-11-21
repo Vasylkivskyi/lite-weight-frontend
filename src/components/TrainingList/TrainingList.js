@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './trainingList.scss';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input, CustomInput } from 'reactstrap';
 import { MdCreate, MdDelete, MdAdd } from 'react-icons/md';
+import { Table } from 'reactstrap';
 
 const TrainingList = (props) => {
   const { dispatch, exercises } = props;
@@ -16,7 +17,6 @@ const TrainingList = (props) => {
   });
 
   const { trainings, set } = trainingState;
-  const { exerciseName, reps, weight } = set;
 
   const handleChange = (e) => {
     setTrainingState({
@@ -32,22 +32,50 @@ const TrainingList = (props) => {
     setTrainingState({
       ...trainingState,
       trainings: [...trainings, set],
-      set: {
-        exerciseName: '',
-        reps: 0,
-        weight: 0,
-      },
     });
-    console.log(trainingState);
   };
 
   const handleSaveTraining = () => {
     console.log('handleSaveTraining');
   };
 
+  const renderCurentTraining = () => {
+    console.log('test');
+    const renderExercises = trainings.map((training, i) => {
+      const { exerciseName, reps, weight } = training;
+      const exName = exerciseName.length ? exerciseName : exercises[0].name;
+      return (
+        <tr key={i}>
+          <th scope='row'>{i + 1}</th>
+          <td>{exName}</td>
+          <td>{reps}</td>
+          <td>{weight}</td>
+          <td>
+            <MdDelete className='icon' />
+          </td>
+        </tr>
+      );
+    });
+    return (
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Назва вправи</th>
+            <th>Повтори</th>
+            <th>Вага</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>{renderExercises}</tbody>
+      </Table>
+    );
+  };
+
   const renderExercisesOptions = () => {
     return exercises.map((ex) => <option key={ex.id}>{ex.name}</option>);
   };
+
   return (
     <div className='training-list'>
       <div className='row exercise-input'>
@@ -85,6 +113,13 @@ const TrainingList = (props) => {
           <MdAdd className='icon' />
         </div>
       </div>
+      {trainings.length > 0 && (
+        <Fragment>
+          <h2 className='text-center mt-3 mb-3'>Виконані вправи</h2>
+          <h6 className='text-center mb-3'>(Не забудь зберегти своє тренування у кінці!)</h6>
+          {renderCurentTraining()}
+        </Fragment>
+      )}
     </div>
   );
 };
