@@ -40,7 +40,6 @@ const TrainingList = (props) => {
   };
 
   const renderCurentTraining = () => {
-    console.log('test');
     const renderExercises = trainings.map((training, i) => {
       const { exerciseName, reps, weight } = training;
       const exName = exerciseName.length ? exerciseName : exercises[0].name;
