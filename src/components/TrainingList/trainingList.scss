@@ -12,11 +12,14 @@
       width: 65%;
 
       @media #{$only-on-mobile} {
-        width: 40%;
+        width: 100%;
       }
     }
     .digits {
       width: 10%;
+      @media #{$only-on-mobile} {
+        width: 45%;
+      }
     }
     .button-container {
       margin-bottom: 1rem;
@@ -30,6 +33,15 @@
       .icon {
         font-size: 1rem;
         color: $primary;
+      }
+
+      @media #{$only-on-mobile} {
+        width: 100%;
+        background: $primary;
+
+        .icon {
+          color: $white;
+        }
       }
 
       &:hover {
