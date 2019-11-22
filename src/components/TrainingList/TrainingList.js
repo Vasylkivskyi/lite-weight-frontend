@@ -1,10 +1,11 @@
 import React, { useState, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 import './trainingList.scss';
 import { FormGroup, Label, Input, CustomInput } from 'reactstrap';
-import { MdCreate, MdDelete, MdAdd } from 'react-icons/md';
+import { MdDelete, MdAdd } from 'react-icons/md';
 import { Table } from 'reactstrap';
 import uuidv4 from 'uuid/v4';
+import { setAlert } from 'ReduxModules/alert/alertActions';
 
 const TrainingList = (props) => {
   const { dispatch, exercises } = props;
@@ -21,16 +22,25 @@ const TrainingList = (props) => {
   const { trainings, set } = trainingState;
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    const checkedValue = value === '' ? '0' : value;
     setTrainingState({
       ...trainingState,
       set: {
         ...set,
-        [e.target.name]: event.target.value,
+        [name]: checkedValue,
       },
     });
   };
 
   const handleSaveSet = () => {
+    const { reps, weight } = set;
+
+    if (isNaN(weight) || isNaN(reps)) {
+      dispatch(setAlert('Значення поля повинно бути числом...', 'danger'));
+      return;
+    }
+
     setTrainingState({
       ...trainingState,
       trainings: [...trainings, { ...set, id: uuidv4() }],
