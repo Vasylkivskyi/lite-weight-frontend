@@ -1,19 +1,23 @@
 import React, { useState, Fragment } from 'react';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import './trainingList.scss';
-import { FormGroup, Label, Input, CustomInput } from 'reactstrap';
+import { FormGroup, Label, Input, Button } from 'reactstrap';
 import { MdDelete, MdAdd } from 'react-icons/md';
 import { Table } from 'reactstrap';
 import uuidv4 from 'uuid/v4';
 import { setAlert } from 'ReduxModules/alert/alertActions';
+import { saveTraining } from 'ReduxModules/training/trainingActions';
+import { Cookies } from 'react-cookie';
+const cookies = new Cookies();
 
 const TrainingList = (props) => {
+  const token = cookies.get('token');
   const { dispatch, exercises } = props;
   const [trainingState, setTrainingState] = useState({
     trainings: [],
     set: {
-      id: '',
-      exerciseName: '',
+      exerciseId: '',
+      exercise_name: '',
       reps: 0,
       weight: 0,
     },
@@ -43,12 +47,12 @@ const TrainingList = (props) => {
 
     setTrainingState({
       ...trainingState,
-      trainings: [...trainings, { ...set, id: uuidv4() }],
+      trainings: [...trainings, { ...set, exerciseId: uuidv4() }],
     });
   };
 
   const handleDelete = (id) => {
-    const filteredExercises = trainings.filter((tr) => tr.id !== id);
+    const filteredExercises = trainings.filter((tr) => tr.exerciseId !== id);
     setTrainingState({
       ...trainingState,
       trainings: [...filteredExercises],
@@ -56,39 +60,47 @@ const TrainingList = (props) => {
   };
 
   const handleSaveTraining = () => {
-    console.log('handleSaveTraining');
+    dispatch(saveTraining(trainings, token));
   };
 
   const renderCurentTraining = () => {
     const renderExercises = trainings.map((training, i) => {
-      const { exerciseName, reps, weight } = training;
-      const exName = exerciseName.length ? exerciseName : exercises[0].name;
+      const { exercise_name, reps, weight } = training;
+      const exName = exercise_name.length ? exercise_name : exercises[0].name;
       return (
-        <tr key={training.id}>
+        <tr key={training.exerciseId}>
           <th scope='row'>{i + 1}</th>
           <td>{exName}</td>
           <td>{reps}</td>
           <td>{weight}</td>
           <td>
-            <MdDelete className='icon' onClick={() => handleDelete(training.id)} />
+            <MdDelete className='icon' onClick={() => handleDelete(training.exerciseId)} />
           </td>
         </tr>
       );
     });
 
     return (
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Назва вправи</th>
-            <th>Повтори</th>
-            <th>Вага</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>{renderExercises}</tbody>
-      </Table>
+      <Fragment>
+        <Table responsive>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Назва вправи</th>
+              <th>Повтори</th>
+              <th>Вага</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>{renderExercises}</tbody>
+        </Table>
+        {''}
+        <div className='text-center mt-3 mb-3'>
+          <Button color='primary' onClick={handleSaveTraining}>
+            Зберегти
+          </Button>
+        </div>
+      </Fragment>
     );
   };
 
@@ -101,36 +113,20 @@ const TrainingList = (props) => {
       <div className='row exercise-input'>
         <FormGroup className='select-exercise'>
           <Label for='exampleSelect'>Вибери вправу зі списку</Label>
-          <Input
-            type='select'
-            name='exerciseName'
-            id='exampleSelect'
-            onChange={(e) => handleChange(e)}>
+          <Input type='select' name='exercise_name' onChange={(e) => handleChange(e)}>
             {renderExercisesOptions()}
           </Input>
         </FormGroup>
         <FormGroup className='digits'>
           <Label for='sets'>Повтори</Label>
-          <Input
-            type='text'
-            name='reps'
-            id='sets'
-            placeholder='0'
-            onChange={(e) => handleChange(e)}
-          />
+          <Input type='text' name='reps' placeholder='0' onChange={(e) => handleChange(e)} />
         </FormGroup>
         <FormGroup className='digits'>
           <Label for='weight'>Вага</Label>
-          <Input
-            type='text'
-            name='weight'
-            id='weight'
-            placeholder='0'
-            onChange={(e) => handleChange(e)}
-          />
+          <Input type='text' name='weight' placeholder='0' onChange={(e) => handleChange(e)} />
         </FormGroup>
         <div className='button-container' onClick={handleSaveSet}>
-          <MdAdd className='icon' />
+          <MdAdd className='icon-plus' />
         </div>
       </div>
       {trainings.length > 0 && (

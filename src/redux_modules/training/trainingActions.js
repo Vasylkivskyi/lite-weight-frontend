@@ -1,4 +1,4 @@
-import REQUEST_SAVE_TRAINING from './trainingTypes';
+import { REQUEST_SAVE_TRAINING } from './trainingTypes';
 import axios from 'axios';
 import { SET_URL } from 'Constants/apiUrls.js';
 

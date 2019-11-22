@@ -30,7 +30,7 @@
       border-radius: 0.25rem;
       background: $white;
 
-      .icon {
+      .icon-plus {
         font-size: 1rem;
         color: $primary;
       }
@@ -39,7 +39,7 @@
         width: 100%;
         background: $primary;
 
-        .icon {
+        .icon-plus {
           color: $white;
         }
       }
@@ -47,7 +47,7 @@
       &:hover {
         background: $primary;
         cursor: pointer;
-        .icon {
+        .icon-plus {
           color: $white;
         }
       }
@@ -60,6 +60,14 @@
     margin-bottom: 3px;
     &:hover {
       color: $nav-bg;
+    }
+  }
+
+  .btn {
+    width: 50%;
+
+    @media #{$only-on-mobile} {
+      width: 100%;
     }
   }
 }
