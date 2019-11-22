@@ -1,12 +1,14 @@
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './trainingList.scss';
-import { FormGroup, Label, Input, Button } from 'reactstrap';
+import { FormGroup, Label, Input, Button, ModalBody, ModalFooter } from 'reactstrap';
 import { MdDelete, MdAdd } from 'react-icons/md';
 import { Table } from 'reactstrap';
 import uuidv4 from 'uuid/v4';
 import { setAlert } from 'ReduxModules/alert/alertActions';
 import { saveTraining } from 'ReduxModules/training/trainingActions';
+import { ModalWindow } from 'Components';
+import Router from 'next/router';
 import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
@@ -21,9 +23,16 @@ const TrainingList = (props) => {
       reps: 0,
       weight: 0,
     },
+    modalIsOpen: false,
   });
 
-  const { trainings, set } = trainingState;
+  const { trainings, set, modalIsOpen } = trainingState;
+
+  const toggleModal = () =>
+    setTrainingState({
+      ...trainingState,
+      modalIsOpen: !modalIsOpen,
+    });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,6 +70,23 @@ const TrainingList = (props) => {
 
   const handleSaveTraining = () => {
     dispatch(saveTraining(trainings, token));
+    Router.push('/');
+  };
+
+  const renderModalContent = () => {
+    return (
+      <Fragment>
+        <ModalBody>Ви дійсно хочете зберегти сьогоднішнє тренування?</ModalBody>
+        <ModalFooter>
+          <Button color='primary' onClick={handleSaveTraining}>
+            Зберегти
+          </Button>{' '}
+          <Button color='secondary' onClick={toggleModal}>
+            Скасувати
+          </Button>
+        </ModalFooter>
+      </Fragment>
+    );
   };
 
   const renderCurentTraining = () => {
@@ -96,7 +122,7 @@ const TrainingList = (props) => {
         </Table>
         {''}
         <div className='text-center mt-3 mb-3'>
-          <Button color='primary' onClick={handleSaveTraining}>
+          <Button color='primary' onClick={toggleModal}>
             Зберегти
           </Button>
         </div>
@@ -110,6 +136,7 @@ const TrainingList = (props) => {
 
   return (
     <div className='training-list'>
+      <h1 className='text-center mb-5'>Сьогоднішнє тренування</h1>
       <div className='row exercise-input'>
         <FormGroup className='select-exercise'>
           <Label for='exampleSelect'>Вибери вправу зі списку</Label>
@@ -136,6 +163,12 @@ const TrainingList = (props) => {
           {renderCurentTraining()}
         </Fragment>
       )}
+      <ModalWindow
+        isOpen={modalIsOpen}
+        toggle={toggleModal}
+        content={renderModalContent}
+        title='Зберегти тренування?'
+      />
     </div>
   );
 };

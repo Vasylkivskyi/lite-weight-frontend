@@ -8,7 +8,6 @@ class HomepageContainer extends Component {
   static async getInitialProps({ reduxStore, req, res }) {
     // use reduxStore to use dispatch
     const token = checkToken({ req, res });
-    console.log(token);
     // make requests with token
     return {};
   }
