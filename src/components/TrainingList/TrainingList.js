@@ -136,7 +136,7 @@ const TrainingList = (props) => {
 
   return (
     <div className='training-list'>
-      <h1 className='text-center mb-5'>Сьогоднішнє тренування</h1>
+      <h2 className='text-center mb-5'>Сьогоднішнє тренування</h2>
       <div className='row exercise-input'>
         <FormGroup className='select-exercise'>
           <Label for='exampleSelect'>Вибери вправу зі списку</Label>
@@ -158,7 +158,7 @@ const TrainingList = (props) => {
       </div>
       {trainings.length > 0 && (
         <Fragment>
-          <h2 className='text-center mt-3 mb-3'>Виконані вправи</h2>
+          <h4 className='text-center mt-3 mb-3'>Виконані вправи</h4>
           <h6 className='text-center mb-3'>(Не забудь зберегти своє тренування у кінці!)</h6>
           {renderCurentTraining()}
         </Fragment>
