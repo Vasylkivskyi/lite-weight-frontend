@@ -4,7 +4,7 @@ import { SET_URL } from 'Constants/apiUrls.js';
 
 export const saveTraining = (data, token) => async (dispatch) => {
   try {
-    axios.post(SET_URL, data, {
+    await axios.post(SET_URL, data, {
       headers: { 'x-access-token': token },
     });
     return { TYPE: REQUEST_SAVE_TRAINING };

@@ -44,7 +44,6 @@ import Router from 'next/router';
 
 export const checkToken = (ctx) => {
   const { token } = cookies(ctx);
-  console.log(token);
   if (!token) {
     if (ctx.res) {
       ctx.res.writeHead(302, {
