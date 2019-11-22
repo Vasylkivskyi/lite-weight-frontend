@@ -4,12 +4,14 @@ import './trainingList.scss';
 import { FormGroup, Label, Input, CustomInput } from 'reactstrap';
 import { MdCreate, MdDelete, MdAdd } from 'react-icons/md';
 import { Table } from 'reactstrap';
+import uuidv4 from 'uuid/v4';
 
 const TrainingList = (props) => {
   const { dispatch, exercises } = props;
   const [trainingState, setTrainingState] = useState({
     trainings: [],
     set: {
+      id: '',
       exerciseName: '',
       reps: 0,
       weight: 0,
@@ -31,7 +33,15 @@ const TrainingList = (props) => {
   const handleSaveSet = () => {
     setTrainingState({
       ...trainingState,
-      trainings: [...trainings, set],
+      trainings: [...trainings, { ...set, id: uuidv4() }],
+    });
+  };
+
+  const handleDelete = (id) => {
+    const filteredExercises = trainings.filter((tr) => tr.id !== id);
+    setTrainingState({
+      ...trainingState,
+      trainings: [...filteredExercises],
     });
   };
 
@@ -44,17 +54,18 @@ const TrainingList = (props) => {
       const { exerciseName, reps, weight } = training;
       const exName = exerciseName.length ? exerciseName : exercises[0].name;
       return (
-        <tr key={i}>
+        <tr key={training.id}>
           <th scope='row'>{i + 1}</th>
           <td>{exName}</td>
           <td>{reps}</td>
           <td>{weight}</td>
           <td>
-            <MdDelete className='icon' />
+            <MdDelete className='icon' onClick={() => handleDelete(training.id)} />
           </td>
         </tr>
       );
     });
+
     return (
       <Table responsive>
         <thead>
