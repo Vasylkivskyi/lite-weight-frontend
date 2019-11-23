@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Layout, TrainingList } from 'Components';
+import { Layout, TrainingList, JumbotronComponent } from 'Components';
 import PropTypes from 'prop-types';
 import { checkToken } from 'Utils/auth';
 import { getExercises } from 'ReduxModules/exercises/exercisesActions';
@@ -17,7 +17,17 @@ class TrainingContainer extends Component {
     return (
       <React.Fragment>
         <Layout page='training' dispatch={dispatch}>
-          <TrainingList dispatch={dispatch} exercises={exercises} />
+          {!exercises.length ? (
+            <JumbotronComponent
+              header='Нє, не, нє!'
+              about='У тебе ще немає жодних збережених вправ...'
+              action='Спершу додай у свій список ті вправи, що плануєш виконувати на тренуваннях. Це можуть бути наприклад: присідання, віджимання, підтягування чи вправи на тренажерах. Обирати тобі.'
+              buttonAction='Додати вправи'
+              link='/exercises'
+            />
+          ) : (
+            <TrainingList dispatch={dispatch} exercises={exercises} />
+          )}
         </Layout>
       </React.Fragment>
     );

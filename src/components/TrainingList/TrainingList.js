@@ -47,16 +47,21 @@ const TrainingList = (props) => {
   };
 
   const handleSaveSet = () => {
-    const { reps, weight } = set;
+    const { reps, weight, exercise_name } = set;
+    if (!exercise_name.length) {
+      console.log('exerciseId', exercises);
+    }
 
     if (isNaN(weight) || isNaN(reps)) {
       dispatch(setAlert('Значення поля повинно бути числом...', 'danger'));
       return;
     }
 
+    const exName = !exercise_name.length ? exercises[0].name : exercise_name;
+
     setTrainingState({
       ...trainingState,
-      trainings: [...trainings, { ...set, exerciseId: uuidv4() }],
+      trainings: [...trainings, { ...set, exerciseId: uuidv4(), exercise_name: exName }],
     });
   };
 
@@ -92,11 +97,10 @@ const TrainingList = (props) => {
   const renderCurentTraining = () => {
     const renderExercises = trainings.map((training, i) => {
       const { exercise_name, reps, weight } = training;
-      const exName = exercise_name.length ? exercise_name : exercises[0].name;
       return (
         <tr key={training.exerciseId}>
           <th scope='row'>{i + 1}</th>
-          <td>{exName}</td>
+          <td>{exercise_name}</td>
           <td>{reps}</td>
           <td>{weight}</td>
           <td>
