@@ -27,7 +27,9 @@ const getExercises = (token) => async (dispatch) => {
   } catch (error) {
     dispatch(receiveExercisesFail());
     console.error('Error from getExercises: ', error.response.data);
-    Router.push('/login');
+    if (error.response.data.name === 'TokenExpiredError') {
+      Router.push('/login');
+    }
     return error;
   }
 };
@@ -47,7 +49,9 @@ const saveExercise = (token, exerciseName) => async (dispatch) => {
     dispatch(getExercises(token));
   } catch (error) {
     console.error('Error from saveExercise: ', error.response.data);
-    Router.push('/login');
+    if (error.response.data.name === 'TokenExpiredError') {
+      Router.push('/login');
+    }
     return error;
   }
 };
@@ -68,7 +72,9 @@ const editExercise = (token, exercise) => async (dispatch) => {
     dispatch(getExercises(token));
   } catch (error) {
     console.error('Error from editExercise', error.response.data);
-    Router.push('/login');
+    if (error.response.data.name === 'TokenExpiredError') {
+      Router.push('/login');
+    }
   }
 };
 
@@ -82,7 +88,9 @@ const deleteExercise = (token, id) => async (dispatch) => {
     dispatch(getExercises(token));
   } catch (error) {
     console.error('Error from deleteExercise', error.response.data);
-    Router.push('/login');
+    if (error.response.data.name === 'TokenExpiredError') {
+      Router.push('/login');
+    }
   }
 };
 
