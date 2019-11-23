@@ -17,7 +17,6 @@ class ExercisesContainer extends Component {
     return (
       <React.Fragment>
         <Layout page='exercises' dispatch={dispatch}>
-          <h1>Твої вправи</h1>
           <ExercisesList dispatch={this.props.dispatch} exercises={exercises} />
         </Layout>
       </React.Fragment>
@@ -45,7 +44,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ExercisesContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ExercisesContainer);

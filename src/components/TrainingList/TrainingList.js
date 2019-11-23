@@ -135,8 +135,8 @@ const TrainingList = (props) => {
   };
 
   return (
-    <div className='training-list'>
-      <h2 className='text-center mb-5'>Сьогоднішнє тренування</h2>
+    <div className='training-list section-wrapper'>
+      <h1 className='mb-3'>Сьогоднішнє тренування</h1>
       <div className='row exercise-input'>
         <FormGroup className='select-exercise'>
           <Label for='exampleSelect'>Вибери вправу зі списку</Label>

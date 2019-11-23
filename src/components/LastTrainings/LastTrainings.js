@@ -74,9 +74,11 @@ const LastTrainings = (props) => {
   return (
     <div className='last-trainings'>
       <Toast className='w-100'>
-        <ToastHeader>
-          Останнє тренування:<span className='date'>{data}</span>
-        </ToastHeader>
+        <div className='home-header'>
+          <h1>Останнє тренування</h1>
+          <span className='date'>{data}</span>
+        </div>
+
         <ToastBody>
           <ListGroup>{renderTrainings()}</ListGroup>
         </ToastBody>

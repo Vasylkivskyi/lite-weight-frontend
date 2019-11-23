@@ -2,10 +2,6 @@
 @import 'styles/_breakpoints';
 
 .training-list {
-  h1 {
-    font-size: 24px;
-  }
-
   .exercise-input {
     display: flex;
     width: 100%;
@@ -35,7 +31,7 @@
       background: $white;
 
       .icon-plus {
-        font-size: 1rem;
+        font-size: 21px;
         color: $primary;
       }
 

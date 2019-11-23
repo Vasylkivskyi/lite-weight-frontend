@@ -66,7 +66,7 @@ const AuthForm = (props) => {
 
   const formTitle = page === 'register' ? 'Реєстрація' : 'Логін';
   return (
-    <div className='auth-form'>
+    <div className='auth-form section-wrapper'>
       <h1>{formTitle}</h1>
       <Form>
         {page === 'register' && (

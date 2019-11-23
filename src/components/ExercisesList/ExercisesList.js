@@ -195,22 +195,25 @@ const ExercisesList = (props) => {
 
   return (
     <div className='exercises-list'>
-      <InputGroup>
-        <Input
-          placeholder='Назва вправи'
-          className='exercise-title'
-          value={exerciseName}
-          onChange={(e) => handleChange(e, 'exerciseName')}
-          onKeyPress={(e) => handleKeyPress(e)}
-        />
-        <InputGroupAddon addonType='append'>
-          <InputGroupText>
-            <MdAdd className='icon' onClick={addExercise} />
-          </InputGroupText>
-        </InputGroupAddon>
-      </InputGroup>
+      <div className='section-wrapper'>
+        <h1 className='mb-3'>Твої вправи</h1>
+        <InputGroup>
+          <Input
+            placeholder='Назва вправи'
+            className='exercise-title'
+            value={exerciseName}
+            onChange={(e) => handleChange(e, 'exerciseName')}
+            onKeyPress={(e) => handleKeyPress(e)}
+          />
+          <InputGroupAddon addonType='append'>
+            <InputGroupText>
+              <MdAdd className='icon' onClick={addExercise} />
+            </InputGroupText>
+          </InputGroupAddon>
+        </InputGroup>
+      </div>
       {exercisesList.length > 0 && (
-        <div className='created-exercises'>
+        <div className='created-exercises section-wrapper'>
           <ListGroup>{renderExercisesList()}</ListGroup>
         </div>
       )}

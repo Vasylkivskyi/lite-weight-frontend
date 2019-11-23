@@ -1,10 +1,21 @@
 @import 'styles/_colors';
 @import 'styles/_breakpoints';
 
-button a {
-  color: $white;
-
-  &:hover {
+.jumbotron-container {
+  .jumbotron {
+    background: $white;
+    padding: 0.75rem;
+    margin: 0;
+  }
+  h1 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  button a {
     color: $white;
+
+    &:hover {
+      color: $white;
+    }
   }
 }

@@ -7,19 +7,21 @@ import './Jumbotron.scss';
 const JumbotronComponent = (props) => {
   const { header, about, action, buttonAction, link } = props;
   return (
-    <Jumbotron>
-      <h1 className='display-3'>{header}</h1>
-      <p className='lead'>{about}</p>
-      <hr className='my-2' />
-      <p>{action}</p>
-      <p className='lead'>
-        <Button color='primary'>
-          <Link href={link}>
-            <a className='simple-link'>{buttonAction}</a>
-          </Link>
-        </Button>
-      </p>
-    </Jumbotron>
+    <div className='jumbotron-container section-wrapper'>
+      <Jumbotron>
+        <h1 className='display-3'>{header}</h1>
+        <p className='lead'>{about}</p>
+        <hr className='my-2' />
+        <p>{action}</p>
+        <p className='lead'>
+          <Button color='primary'>
+            <Link href={link}>
+              <a className='simple-link'>{buttonAction}</a>
+            </Link>
+          </Button>
+        </p>
+      </Jumbotron>
+    </div>
   );
 };
 

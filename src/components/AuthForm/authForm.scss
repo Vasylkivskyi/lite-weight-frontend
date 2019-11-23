@@ -2,6 +2,9 @@
 @import 'styles/_breakpoints';
 
 .auth-form {
+  max-width: 400px;
+  margin: 0 auto;
+
   p {
     margin-top: 1rem;
   }

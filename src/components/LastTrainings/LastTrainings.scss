@@ -13,14 +13,26 @@
       }
     }
 
-    .toast-header {
-      font-size: 18px;
+    .home-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0.75rem 0 0.75rem;
+      align-items: center;
+
+      @media #{$only-on-mobile} {
+        font-size: 14px;
+      }
     }
 
     .date {
-      color: $primary;
+      font-weight: bold;
       margin-left: 30px;
-      font-size: 16px;
+      white-space: nowrap;
+
+      @media #{$only-on-mobile} {
+        font-size: 14px;
+        margin-left: 10px;
+      }
     }
 
     .exercise-container {
@@ -33,6 +45,12 @@
       }
 
       .exercise-box {
+        @media #{$only-on-mobile} {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
         .exercise-name {
           max-width: 70%;
           text-overflow: ellipsis;
@@ -54,6 +72,10 @@
             transform: opacity 0.8s ease-in-out;
             opacity: 0;
           }
+
+          @media #{$only-on-mobile} {
+            display: none;
+          }
         }
       }
 
@@ -61,6 +83,7 @@
         &:hover {
           box-shadow: 1px 1px 2px silver;
           border-radius: 2px;
+          cursor: pointer;
         }
 
         .more-button {
