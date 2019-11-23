@@ -76,7 +76,7 @@ const redirectUserDeleteToken = (error, res) => {
       Router.push('/login');
     }
   } else {
-    console.log('Something went wrong!!');
+    console.log('Something went wrong!!', error.response.data);
   }
 };
 

@@ -1,0 +1,78 @@
+@import 'styles/_colors';
+@import 'styles/_breakpoints';
+
+.last-trainings {
+  .toast {
+    max-width: 100%;
+
+    .list-group-item {
+      th,
+      td {
+        border: none;
+        text-align: center;
+      }
+    }
+
+    .toast-header {
+      font-size: 18px;
+    }
+
+    .date {
+      color: $primary;
+      margin-left: 30px;
+      font-size: 16px;
+    }
+
+    .exercise-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &.change {
+        padding-bottom: 20px;
+      }
+
+      .exercise-box {
+        .exercise-name {
+          max-width: 70%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          height: 100%;
+        }
+
+        .sets-count {
+          padding: 0.3em 0.8em;
+          background: grey;
+          border-radius: 15px;
+          color: white;
+          font-weight: bold;
+          margin: 0 15px;
+          box-shadow: 1px 1px 2px silver;
+          transition: all 0.5s;
+
+          &.change {
+            transform: opacity 0.8s ease-in-out;
+            opacity: 0;
+          }
+        }
+      }
+
+      .see-more {
+        &:hover {
+          box-shadow: 1px 1px 2px silver;
+          border-radius: 2px;
+        }
+
+        .more-button {
+          font-size: 22px;
+          transition: all 0.5s;
+          &.change {
+            transform: rotateZ(180deg);
+          }
+        }
+      }
+    }
+    .exercise-table {
+    }
+  }
+}

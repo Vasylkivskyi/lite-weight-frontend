@@ -17,7 +17,7 @@ const receiveExercisesFail = () => ({
   type: RECEIVE_EXERCISES_FAIL,
 });
 
-const getExercises = (token, ctx) => async (dispatch) => {
+const getExercises = (token, res) => async (dispatch) => {
   try {
     dispatch(requestExercises());
     const result = await axios.get(EXERCISES, {
@@ -27,7 +27,7 @@ const getExercises = (token, ctx) => async (dispatch) => {
   } catch (error) {
     dispatch(receiveExercisesFail());
     console.error('Error from getExercises: ', error.response.data);
-    redirectUserDeleteToken(error, ctx);
+    redirectUserDeleteToken(error, res);
     return error;
   }
 };

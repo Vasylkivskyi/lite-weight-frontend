@@ -5,3 +5,4 @@ export { default as JumbotronComponent } from './Jumbotron/Jumbotron';
 export { default as ExercisesList } from './ExercisesList/ExercisesList';
 export { default as ModalWindow } from './ModalWindow/ModalWindow';
 export { default as TrainingList } from './TrainingList/TrainingList';
+export { default as LastTrainings } from './LastTrainings/LastTrainings';
