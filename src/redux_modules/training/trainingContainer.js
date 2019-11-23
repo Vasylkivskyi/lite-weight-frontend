@@ -8,7 +8,7 @@ import { getExercises } from 'ReduxModules/exercises/exercisesActions';
 class TrainingContainer extends Component {
   static async getInitialProps({ reduxStore, req, res }) {
     const token = checkToken({ req, res });
-    await reduxStore.dispatch(getExercises(token));
+    await reduxStore.dispatch(getExercises(token, res));
     return {};
   }
 

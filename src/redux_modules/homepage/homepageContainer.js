@@ -10,8 +10,8 @@ class HomepageContainer extends Component {
     // use reduxStore to use dispatch
     const token = checkToken({ req, res });
     // make requests with token
-    await reduxStore.dispatch(getLatestTraining(token));
-    return {};
+    await reduxStore.dispatch(getLatestTraining(token, res));
+    return { reduxStore };
   }
 
   render() {

@@ -41,8 +41,10 @@
 
 import cookies from 'next-cookies';
 import Router from 'next/router';
+import { Cookies } from 'react-cookie';
+const reactCookie = new Cookies();
 
-export const checkToken = (ctx) => {
+const checkToken = (ctx) => {
   const { token } = cookies(ctx);
   if (!token) {
     if (ctx.res) {
@@ -52,7 +54,30 @@ export const checkToken = (ctx) => {
       ctx.res.end();
     } else {
       Router.push('/login');
+      reactCookie.set('token', '');
     }
   }
   return token;
 };
+
+const redirectUserDeleteToken = (error, res) => {
+  if (
+    error.response.data.name === 'TokenExpiredError' ||
+    error.response.data.message === 'Token is not provided' ||
+    error.response.data.message === 'invalid signature'
+  ) {
+    reactCookie.set('token', '');
+    if (res) {
+      ctx.res.writeHead(302, {
+        Location: '/login',
+      });
+      ctx.res.end();
+    } else {
+      Router.push('/login');
+    }
+  } else {
+    console.log('Something went wrong!!');
+  }
+};
+
+export { checkToken, redirectUserDeleteToken };

@@ -48,10 +48,6 @@ const TrainingList = (props) => {
 
   const handleSaveSet = () => {
     const { reps, weight, exercise_name } = set;
-    if (!exercise_name.length) {
-      console.log('exerciseId', exercises);
-    }
-
     if (isNaN(weight) || isNaN(reps)) {
       dispatch(setAlert('Значення поля повинно бути числом...', 'danger'));
       return;

@@ -1,6 +1,6 @@
 import { REQUEST_EXERCISES, RECEIVE_EXERCISES, RECEIVE_EXERCISES_FAIL } from './exercisesTypes';
 import { EXERCISES } from 'Constants/apiUrls.js';
-import Router from 'next/router';
+import { redirectUserDeleteToken } from 'Utils/auth';
 
 import axios from 'axios';
 
@@ -17,7 +17,7 @@ const receiveExercisesFail = () => ({
   type: RECEIVE_EXERCISES_FAIL,
 });
 
-const getExercises = (token) => async (dispatch) => {
+const getExercises = (token, ctx) => async (dispatch) => {
   try {
     dispatch(requestExercises());
     const result = await axios.get(EXERCISES, {
@@ -27,9 +27,7 @@ const getExercises = (token) => async (dispatch) => {
   } catch (error) {
     dispatch(receiveExercisesFail());
     console.error('Error from getExercises: ', error.response.data);
-    if (error.response.data.name === 'TokenExpiredError') {
-      Router.push('/login');
-    }
+    redirectUserDeleteToken(error, ctx);
     return error;
   }
 };
@@ -42,16 +40,14 @@ const saveExercise = (token, exerciseName) => async (dispatch) => {
       exercise, // data must be an {object}!
       {
         headers: {
-          'x-access-token': token,
+          'x-access-token': token + 1211,
         },
       },
     );
     dispatch(getExercises(token));
   } catch (error) {
     console.error('Error from saveExercise: ', error.response.data);
-    if (error.response.data.name === 'TokenExpiredError') {
-      Router.push('/login');
-    }
+    redirectUserDeleteToken(error);
     return error;
   }
 };
@@ -72,9 +68,7 @@ const editExercise = (token, exercise) => async (dispatch) => {
     dispatch(getExercises(token));
   } catch (error) {
     console.error('Error from editExercise', error.response.data);
-    if (error.response.data.name === 'TokenExpiredError') {
-      Router.push('/login');
-    }
+    redirectUserDeleteToken(error);
   }
 };
 
@@ -88,9 +82,7 @@ const deleteExercise = (token, id) => async (dispatch) => {
     dispatch(getExercises(token));
   } catch (error) {
     console.error('Error from deleteExercise', error.response.data);
-    if (error.response.data.name === 'TokenExpiredError') {
-      Router.push('/login');
-    }
+    redirectUserDeleteToken(error);
   }
 };
 
