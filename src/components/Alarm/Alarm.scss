@@ -1,0 +1,35 @@
+.alarm-container {
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  margin-bottom: 0.75rem;
+  animation: show-hide 2s;
+  color: white;
+  box-shadow: 1px 1px 3px gray;
+  z-index: 1000;
+
+  &.success {
+    background: rgb(55, 133, 55);
+  }
+
+  &.danger {
+    background: rgb(196, 35, 35);
+  }
+
+  @keyframes show-hide {
+    0% {
+      opacity: 0;
+    }
+
+    33% {
+      opacity: 1;
+    }
+
+    77% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+}

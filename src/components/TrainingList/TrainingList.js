@@ -8,7 +8,6 @@ import uuidv4 from 'uuid/v4';
 import { setAlert } from 'ReduxModules/alert/alertActions';
 import { saveTraining } from 'ReduxModules/training/trainingActions';
 import { ModalWindow } from 'Components';
-import Router from 'next/router';
 import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
@@ -71,7 +70,17 @@ const TrainingList = (props) => {
 
   const handleSaveTraining = () => {
     dispatch(saveTraining(trainings, token));
-    Router.push('/');
+    dispatch(setAlert('Тренування успішно збережене', 'success'));
+    setTrainingState({
+      trainings: [],
+      set: {
+        exerciseId: '',
+        exercise_name: '',
+        reps: 0,
+        weight: 0,
+      },
+      modalIsOpen: false,
+    });
   };
 
   const renderModalContent = () => {

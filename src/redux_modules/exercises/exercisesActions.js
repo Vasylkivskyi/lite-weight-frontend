@@ -40,7 +40,7 @@ const saveExercise = (token, exerciseName) => async (dispatch) => {
       exercise, // data must be an {object}!
       {
         headers: {
-          'x-access-token': token + 1211,
+          'x-access-token': token,
         },
       },
     );

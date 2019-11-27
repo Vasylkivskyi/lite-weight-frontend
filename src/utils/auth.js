@@ -68,10 +68,10 @@ const redirectUserDeleteToken = (error, res) => {
   ) {
     reactCookie.set('token', '');
     if (res) {
-      ctx.res.writeHead(302, {
+      res.writeHead(302, {
         Location: '/login',
       });
-      ctx.res.end();
+      res.end();
     } else {
       Router.push('/login');
     }

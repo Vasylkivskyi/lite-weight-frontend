@@ -29,7 +29,9 @@ const Layout = (props) => {
       </div>
       <div className='main'>
         <div className='container home-content'>
-          <AlertContainer />
+          <div className='alarms'>
+            <AlertContainer />
+          </div>
           {children}
           {/* <div className="mt-5"><Footer /></div> */}
         </div>

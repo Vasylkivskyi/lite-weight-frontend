@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Alert } from 'reactstrap';
+import { Alarm } from 'Components';
 
 const AlertContainer = ({ alerts, dispatch }) =>
   alerts !== null &&
   alerts.length !== 0 &&
   alerts.map((alert) => {
-    return (
-      <Alert color={alert.alertType} key={alert.id} fade={false}>
-        {alert.msg}
-      </Alert>
-    );
+    return <Alarm color={alert.alertType} msg={alert.msg} key={alert.id} />;
   });
 
 AlertContainer.propTypes = {
@@ -26,7 +22,4 @@ const mapDispatchToProps = (dispatch) => ({
   dispatch,
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AlertContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AlertContainer);
