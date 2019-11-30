@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Layout, JumbotronComponent, LastTrainings } from 'Components';
+import { Layout, JumbotronComponent, LastTrainingsList } from 'Components';
 import PropTypes from 'prop-types';
 import { checkToken } from 'Utils/auth';
 import { getLatestTraining } from 'ReduxModules/training/trainingActions';
@@ -28,7 +28,8 @@ class HomepageContainer extends Component {
               link='/exercises'
             />
           ) : (
-            <LastTrainings trainings={trainings} />
+            // <LastTrainings trainings={trainings} />
+            <LastTrainingsList trainings={trainings} />
           )}
         </Layout>
       </React.Fragment>
@@ -39,7 +40,7 @@ class HomepageContainer extends Component {
 HomepageContainer.propTypes = {
   userToken: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
-  trainings: PropTypes.arrayOf(PropTypes.object),
+  trainings: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
 };
 
 HomepageContainer.defaultProps = {
@@ -59,7 +60,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(HomepageContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HomepageContainer);

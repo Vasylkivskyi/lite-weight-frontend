@@ -6,4 +6,5 @@ export { default as ExercisesList } from './ExercisesList/ExercisesList';
 export { default as ModalWindow } from './ModalWindow/ModalWindow';
 export { default as TrainingList } from './TrainingList/TrainingList';
 export { default as LastTrainings } from './LastTrainings/LastTrainings';
+export { default as LastTrainingsList } from './LastTrainingsList/LastTrainingsList';
 export { default as Alarm } from './Alarm/Alarm';

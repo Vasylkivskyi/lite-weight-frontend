@@ -11,7 +11,11 @@ const AlertContainer = ({ alerts, dispatch }) =>
   });
 
 AlertContainer.propTypes = {
-  alerts: PropTypes.array.isRequired,
+  alerts: PropTypes.array,
+};
+
+AlertContainer.defaultProps = {
+  alerts: [],
 };
 
 const mapStateToProps = (state) => ({

@@ -23,8 +23,10 @@ const saveTraining = (data, token) => async (dispatch) => {
 const getLatestTraining = (token, res) => async (dispatch) => {
   try {
     const result = await axios.get(SET_URL, { headers: { 'x-access-token': token } });
+    //console.log(result.data);
     dispatch(receiveExercises(result.data));
   } catch (error) {
+    console.error('Error from getLatestTraining', error.response.data);
     redirectUserDeleteToken(error, res);
   }
 };

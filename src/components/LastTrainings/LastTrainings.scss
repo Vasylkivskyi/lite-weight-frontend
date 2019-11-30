@@ -2,6 +2,7 @@
 @import 'styles/_breakpoints';
 
 .last-trainings {
+  margin-bottom: 1.75rem;
   .toast {
     max-width: 100%;
 
@@ -17,7 +18,7 @@
       margin-top: 12px;
       display: flex;
       justify-content: space-between;
-      padding: 0.75rem 0.75rem 0 0.75rem;
+      padding: 0.75rem 0.75rem 0 0;
       align-items: center;
 
       @media #{$only-on-mobile} {

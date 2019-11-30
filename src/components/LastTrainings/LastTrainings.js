@@ -14,17 +14,18 @@ import moment from 'moment';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
 const LastTrainings = (props) => {
-  const { trainings } = props;
-  const data = moment(trainings[0].created_date).format('DD-MM-YYYY HH:mm');
+  const { training } = props;
+  const { created_date } = training[0];
+  const date = moment(created_date).format('DD-MM-YYYY HH:mm');
 
   const renderTrainings = () => {
-    const names = trainings.map((tr) => tr.exercise_name);
+    const names = training.map((tr) => tr.exercise_name);
     const onlyUnique = (value, index, self) => {
       return self.indexOf(value) === index;
     };
     const uniqNames = names.filter(onlyUnique);
     const sortedExercises = uniqNames.map((name) => {
-      const sets = trainings.filter((tr) => tr.exercise_name === name);
+      const sets = training.filter((tr) => tr.exercise_name === name);
       return { name, sets };
     });
 
@@ -35,7 +36,7 @@ const LastTrainings = (props) => {
 
       return (
         <ListGroupItem key={i} className='justify-content-between'>
-          <div className={`exercise-container ${changeCSS}`}>
+          <div className={`exercise-container ${changeCSS}`} onClick={toggle}>
             <div className='exercise-box'>
               <span className='exercise-name'>{ex.name}</span>
               <span className={`sets-count ${changeCSS}`}> Підходів: {ex.sets.length}</span>
@@ -75,8 +76,7 @@ const LastTrainings = (props) => {
     <div className='last-trainings'>
       <Toast className='w-100'>
         <div className='home-header'>
-          <h1>Останнє тренування</h1>
-          <span className='date'>{data}</span>
+          <span className='date'>{date}</span>
         </div>
 
         <ToastBody>
@@ -88,7 +88,7 @@ const LastTrainings = (props) => {
 };
 
 LastTrainings.propTypes = {
-  trainings: PropTypes.arrayOf(object).isRequired,
+  training: PropTypes.arrayOf(object).isRequired,
 };
 
 export default LastTrainings;
