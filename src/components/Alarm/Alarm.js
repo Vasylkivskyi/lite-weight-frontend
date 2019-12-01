@@ -9,7 +9,11 @@ const Alarm = (props) => {
 };
 
 Alarm.propTypes = {
-  alarm: PropTypes.string.isRequired,
+  alarm: PropTypes.string,
+};
+
+Alarm.defaultProps = {
+  alarm: '',
 };
 
 export default Alarm;

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes, { object } from 'prop-types';
 import './LastTrainings.scss';
+import { ListGroupItemComponent } from 'Components';
 import {
   Toast,
   ToastBody,
@@ -11,7 +12,6 @@ import {
   Table,
 } from 'reactstrap';
 import moment from 'moment';
-import { MdKeyboardArrowDown } from 'react-icons/md';
 
 const LastTrainings = (props) => {
   const { training } = props;
@@ -29,47 +29,9 @@ const LastTrainings = (props) => {
       return { name, sets };
     });
 
-    return sortedExercises.map((ex, i) => {
-      const [collapse, setCollapse] = useState(false);
-      const toggle = () => setCollapse(!collapse);
-      const changeCSS = collapse ? 'change' : '';
-
-      return (
-        <ListGroupItem key={i} className='justify-content-between'>
-          <div className={`exercise-container ${changeCSS}`} onClick={toggle}>
-            <div className='exercise-box'>
-              <span className='exercise-name'>{ex.name}</span>
-              <span className={`sets-count ${changeCSS}`}> Підходів: {ex.sets.length}</span>
-            </div>
-            <span className='see-more' onClick={toggle}>
-              <MdKeyboardArrowDown className={`more-button ${changeCSS}`} />
-            </span>
-          </div>
-          <Collapse isOpen={collapse}>
-            <div className='exercise-table'>
-              <Table responsive>
-                <thead>
-                  <tr>
-                    <th>Підхід</th>
-                    <th>Кількість повторів</th>
-                    <th>Вага</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {ex.sets.map((set, index) => (
-                    <tr key={index}>
-                      <th scope='row'>{index + 1}</th>
-                      <td>{set.reps}</td>
-                      <td>{set.weight}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </div>
-          </Collapse>
-        </ListGroupItem>
-      );
-    });
+    return sortedExercises.map((ex, i) => (
+      <ListGroupItemComponent key={i} name={ex.name} sets={ex.sets} />
+    ));
   };
 
   return (

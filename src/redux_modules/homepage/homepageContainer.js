@@ -6,16 +6,16 @@ import { checkToken } from 'Utils/auth';
 import { getLatestTraining } from 'ReduxModules/training/trainingActions';
 
 class HomepageContainer extends Component {
-  static async getInitialProps({ reduxStore, req, res }) {
+  static async getInitialProps({ reduxStore, query: { page = 1 }, req, res }) {
     // use reduxStore to use dispatch
     const token = checkToken({ req, res });
     // make requests with token
-    await reduxStore.dispatch(getLatestTraining(token, res));
-    return { reduxStore };
+    await reduxStore.dispatch(getLatestTraining(token, res, page));
+    return { page: +page };
   }
 
   render() {
-    const { dispatch, trainings } = this.props;
+    const { dispatch, trainings, page } = this.props;
     return (
       <React.Fragment>
         <Layout page='homepage' dispatch={dispatch}>
@@ -28,8 +28,7 @@ class HomepageContainer extends Component {
               link='/exercises'
             />
           ) : (
-            // <LastTrainings trainings={trainings} />
-            <LastTrainingsList trainings={trainings} />
+            <LastTrainingsList trainings={trainings} currentPage={page} />
           )}
         </Layout>
       </React.Fragment>
@@ -41,11 +40,13 @@ HomepageContainer.propTypes = {
   userToken: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
   trainings: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
+  page: PropTypes.number,
 };
 
 HomepageContainer.defaultProps = {
   userToken: '',
   trainings: [],
+  page: 1,
 };
 
 function mapStateToProps(state) {

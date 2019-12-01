@@ -8,3 +8,5 @@ export { default as TrainingList } from './TrainingList/TrainingList';
 export { default as LastTrainings } from './LastTrainings/LastTrainings';
 export { default as LastTrainingsList } from './LastTrainingsList/LastTrainingsList';
 export { default as Alarm } from './Alarm/Alarm';
+export { default as PaginationComponent } from './Pagination/Pagination';
+export { default as ListGroupItemComponent } from './ListGroupItem/ListGroupItem';
