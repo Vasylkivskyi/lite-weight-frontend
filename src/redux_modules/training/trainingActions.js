@@ -21,7 +21,6 @@ const saveTraining = (data, token) => async (dispatch) => {
 };
 
 const getLatestTraining = (token, res, page) => async (dispatch) => {
-  console.log(page);
   try {
     const result = await axios.get(SET_URL, { headers: { 'x-access-token': token, page } });
     //console.log(result.data);

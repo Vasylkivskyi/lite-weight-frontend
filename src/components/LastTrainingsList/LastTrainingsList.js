@@ -4,12 +4,14 @@ import { LastTrainings, PaginationComponent } from 'Components';
 import './LastTrainingsList.scss';
 
 const LastTrainingsList = ({ trainings, currentPage }) => {
+  const amount = trainings[0][0].amount;
+
   return (
     <div className='last-trainings-container'>
       {trainings.map((training, id) => (
         <LastTrainings key={id} training={training} />
       ))}
-      <PaginationComponent currentPage={currentPage} />
+      <PaginationComponent currentPage={currentPage} amount={+amount} />
     </div>
   );
 };

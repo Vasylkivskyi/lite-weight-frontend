@@ -6,6 +6,11 @@
   justify-content: center;
   margin-bottom: 2rem;
 
+  .disabled-link {
+    pointer-events: none;
+    color: white;
+  }
+
   .buttons {
     display: flex;
     flex-wrap: nowrap;
