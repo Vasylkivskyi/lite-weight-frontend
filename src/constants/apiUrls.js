@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:5000/api';
+const apiUrl = 'https://cryptic-springs-86805.herokuapp.com/api';
 const USERS = `${apiUrl}/users`;
 const USERS_LOGIN = `${apiUrl}/users/login`;
 const VALIDATE_TOKEN = `${apiUrl}/ping`;
