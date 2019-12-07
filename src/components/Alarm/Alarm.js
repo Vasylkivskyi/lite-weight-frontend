@@ -4,7 +4,6 @@ import './Alarm.scss';
 
 const Alarm = (props) => {
   const { color, msg } = props;
-
   return <div className={`alarm-container ${color}`}>{msg}</div>;
 };
 
